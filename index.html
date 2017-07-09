@@ -19,7 +19,7 @@ body {background-color: #FEF6EB;}
 
 body {
     color: white;
-	font-family: "Lucida Console", monospace;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 h1 {
     color: #525564;
@@ -30,7 +30,7 @@ h1 {
 h2 {
 	color: #525564;
     letter-spacing: 5px;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 </style>
@@ -46,7 +46,7 @@ h2 {
 <br>
 <h2>About Me</h2>
 <body><p>
-<img src="Me.png" alt="Me" height="30%" width="30%" align="left">
+<img src="Me.png" alt="Me" height="40%" width="40%" align="right">
 The full frequency domain of the heartbeat ranges from .1-250Hz (Donnelly). There is a DC offset coming from the electrodes, so it would be necessary to eliminate this offset and higher frequencies with a filter. Therefore, it would be most practical to cascade a high pass and a low pass filter. First, a high pass filter could be used to filter out the DC offset. The resting heart beat is around 2-3Hz. Therefore, a high pass filter could be designed with a .5Hz stop frequency. This would eliminate minute interferences and the undesired DC input. The high pass filter could then have a 1Hz corner frequency to 250Hz corner frequency; the -3db pass band. Then, a low pass filter with a 250Hz corner frequency could be used to filter undesired high frequencies. 
 The calculations for the filter are included at the end.
 
