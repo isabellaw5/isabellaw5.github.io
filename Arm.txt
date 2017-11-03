@@ -113,19 +113,17 @@ table.table1 td{
 <img src="Contact.png" alt="Contact Me Button" height="12%" width="12%" align="middle" class="transparent"></a>
 <br></center>
 <center>
-<b><h2>Project Navigation</h2></b> 
+<b><h2>Prosthetic Arm Design</h2></b> 
+<br>
 
 <body><p>
-<a href="/AnimalCell.html">3D Design Portfolio</a>
+I am currently tackling my most challenging yet rewarding project: Designing, 3D printing, programming, and assembling a prosthetic arm for under $120. The prosthetic was commissioned by a real client and will be customized as such.
 <br>
-<a href="/FitnessTest.html">"Fitness Test" Report</a>
-<br>
-<a href="/PulseOx.html">Pulse Oximeter Workshop</a>
-<br>
-<a href="/IQTest.html">"The Ultimate IQ Test" Report</a>
 
- 
-<br><br>
+<img src="Arm3.png" alt="Prosthetic Arm Design" height="95%" width="95%" align="middle">
+<br>
+
+
 </center>
 </div>
 </p>
