@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+<style>
+body {background-color: #525564;}
+
+.div1 {
+    border: 20px solid #FEF6EB;
+    margin: 0px;
+	padding: 10px 25px 15px 25px;
+	font: Bookman;
+	margin-right: 200px;
+    margin-left: 200px;
+	background-color: #96C0CE
+}
+
+
+body {
+    color: white;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 13px;
+}
+h1 {
+    color: #525564;
+	letter-spacing: 13px;
+	text-shadow: 1px 1px #FEF6EB;
+	font-size: 35px;
+}
+
+h2 {
+	color: #525564;
+    letter-spacing: 5px;
+	font-size: 18px;
+}
+
+h3 {
+	color: #525564;
+    letter-spacing: 3px;
+	font-size: 15px;
+}
+
+h4 {
+	color: #525564;
+    letter-spacing: 3px;
+	font-size: 15px;
+}
+
+h5 {
+	color: #525564;
+    letter-spacing: 3px;
+	font-size: 15px;
+}
+
+img.transparent {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+img.transparent:hover {
+    opacity: .7;
+    filter: alpha(opacity=70);
+}
+</style>
+</head>
+<div class="div1">
+<h1>
+<center><b>ISABELLA WATSON</b></h1></center>
+<center>
+<a href="/index.html">
+<img src="Home.png" alt="Home Button" height="12%" width="12%" align="middle" class="transparent"></a>	
+<a href="/Resume.html">
+<img src="Resume.png" alt="Resume Button" height="12%" width="12%" align="middle" class="transparent"></a> 
+<a href="/MyWork.html">
+<img src="MyWork.png" alt="My Work Button" height="12%" width="12%" align="middle" class="transparent"></a> 
+<a href="/Contact.html">
+<img src="Contact.png" alt="Contact Me Button" height="12%" width="12%" align="middle" class="transparent"></a>
+<br>
+
+<body><p>
+<br>
+UNC's biomedical engineering department is heavily based on electronics. During my junior year I built an ECG from scratch using a breadboard and lab electronics.
+<br>
+Operational amplifier circuits can be constructed to serve as an EKG. There are several important design considerations. These include source impedance, signal frequency, and signal size. Source impedance is an important attribute because it is important not to draw current from the input (patient). It is only important to input the voltage peaks and troughs. The frequency of the input signal is small (0-3Hz), so bandpass filters can be used to pass only these frequencies through. Problems can arise with sound distorting the signal. Further, the signal size ranges from ~10-100 μV, so a large gain is desired if any readable output is to be attained (Hubbard).
+<br>
+<h2>1.0 Opto-Isolation Circuit</h2>
+Our design (fig 1 & 2) for the opto-isolation circuit produced a relatively clear waveform (fig 2). The only discrepancy between expected and observed results was clipping at the pulse peak. We thought this was due to insufficient power rails, and tried to rectify this by increasing the Vee and Vcc to a maximum. This did not produce a cleaner signal. Perhaps our gain was too high and exceeded the maximum allowable output for the AD623 with the given rail voltages.
+<br>
+<img src="opto-is.png" height="95%" width="95%" align="middle"><br>
+Figure 1 Opto-isolation circuit.
+<img src="opto-is_output.png" height="95%" width="95%" align="middle"><br>
+Figure 2 Opto-isolation circuit output signal.
+<br>
+<h2>Signal Filtering </h2>
+<br>
+A 6mV 1Hz sine wave from the function generator was used to simulate a heartbeat. The filter schematic is depicted in fig 3. The filtered output was cleaner and produced the desired effects. The DC offset was eliminated, producing a signal of ~1V lesser in amplitude, as expected (with a gain of almost unity, the signal should be the op-amp output minus 1). This is, however, for a function generator input. In reality a heart signal is much messier (baseline wander, mains frequency/lighting noise, muscle noise, RF noise etc.), possibly necessitating a notch filter to first filter out the DC interference, then 60Hz mid-range interference without cutting out too much of the heart signal. Again, time constraints restricted us from building an ideal filter. 
+<br>
+<img src="filter.png" height="95%" width="95%" align="middle"><br>
+Figure 3 Schematic of the band pass filter used (rendered in Multisim). Note: The filter input signal was actually 2Vpk, 1Hz.
+<img src="output_input.png" height="95%" width="95%" align="middle"><br>
+Figure 4 AD623 Instrumentation amplifier filtered output signal.
+<br>
+<h2>AD Conversion </h2>
+<br>
+Displaying the pulse is the final step in creating a functional EKG. Due to time constraints, we were not able to use the EKG system’s output for the DAC. Instead, we used a 5mV pk, 1Hz signal from the function generator on pulse mode to simulate a heartbeat. The concept for our LabView VI is ADC: It will take the EKG analog input and display the waveform, running peak amplitude with respect to a threshold voltage, and the BPM of the EKG signal for clinician use. Using the DAQ assistant sub-VI, data from the DAQ was acquired and set such that the maximum and minimum VI inputs were in line with our inputs. Our settings included continuous sampling (1k samples in 1kHz). The signal was then fed into a low pass filter sub-VI with a 5Hz cut off frequency, which produced a clear signal which displayed on our “EKG monitor” plot in real time.
+	Several steps were required to provide an accurate BPM calculation and display. First, a peak detector was used. Each peak was recorded, allowing for BPM calculations based on pulse width between peaks. Each iteration is passed through the shift register into the while loop so that it be input back into the calculation to count the BPM and time passed. Finally, our amplitudes from the peak detector are implemented into an array maximum and minimum sub-VI, so that we can convert the array values to analog peak values so that we can then compare them and use that logic for our true/false Boolean for our amplitude case structure. Basically if the peak exceeds 0 and exceeds our set threshold, then the case structure allows for that peak amplitude to be displayed. 
+	This setup worked perfectly, displaying accurate BPM and waveform.
+<br>
+<img src="ADC.png" height="95%" width="95%" align="middle"><br>
+Figure 5 ADC in LabView.
+<img src="ADC_O.png" height="95%" width="95%" align="middle"><br>
+Figure 6 ADC output.
+<br>
+
+	
+
+
+<br><br>
+
+</div>
+</p>
+</html>
+</body>
