@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+<style>
+body {background-color: #525564;}
+
+.div1 {
+    border: 20px solid #FEF6EB;
+    margin: 0px;
+	padding: 10px 25px 15px 25px;
+	font: Bookman;
+	margin-right: 200px;
+    margin-left: 200px;
+	background-color: #96C0CE
+}
+
+
+body {
+    color: white;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 15px;
+}
+h1 {
+    color: #525564;
+	letter-spacing: 13px;
+	text-shadow: 1px 1px #FEF6EB;
+	font-size: 35px;
+}
+
+h2 {
+	color: #525564;
+    letter-spacing: 5px;
+	font-size: 18px;
+}
+
+h3 {
+	color: #525564;
+    letter-spacing: 3px;
+	font-size: 15px;
+}
+
+h4 {
+	color: #525564;
+    letter-spacing: 3px;
+	font-size: 15px;
+}
+
+h5 {
+	color: #525564;
+    letter-spacing: 3px;
+	font-size: 15px;
+}
+
+img.transparent {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+img.transparent:hover {
+    opacity: .7;
+    filter: alpha(opacity=70);
+}
+</style>
+</head>
+<div class="div1">
+<h1>
+<center><b>ISABELLA WATSON</b></h1></center>
+<center>
+<a href="/index.html">
+<img src="Home.png" alt="Home Button" height="12%" width="12%" align="middle" class="transparent"></a>	
+<a href="/Resume.html">
+<img src="Resume.png" alt="Resume Button" height="12%" width="12%" align="middle" class="transparent"></a> 
+<a href="/MyWork.html">
+<img src="MyWork.png" alt="My Work Button" height="12%" width="12%" align="middle" class="transparent"></a> 
+<a href="/Contact.html">
+<img src="Contact.png" alt="Contact Me Button" height="12%" width="12%" align="middle" class="transparent"></a>
+<br>
+
+<body><p>
+<br>
+Over the summer of 2018, I worked as a robotics instructor for a summer camp at Stanford University in California. I taught a course titled "Self-Driving and Autonomous Robotics Lab". I first assembled the frame for the robot, then wired it. The self-driving robot was built upon NVIDIA's Jetson TX1 chip. I used ROS on the Ubuntu OS to communicate with the chip. The directions for the robot were written in C++.
+<br>
+<h2>Frame Assembly</h2>
+
+<br>
+<img src="Jetson2.jpg" height="70%" width="70%" align="middle"><br>
+Assembled car built from Jetson TX1 chip.<br>
+
+<br>
+<h2>Lab #1: Controlling the Jetson with Keyboard</h2>
+<br>
+In this lab, you will make the Jetson move simply by pressing keys on your keyboard!<br>
+ssh into the Jetson<br>
+Change directories to the catkin workspace<br>
+Source bashrc and devel/setup:<br>
+source ~/.bashrc<br>
+Source devel/setup.sh<br>
+Launch jet bring-up:<br>
+
+Now launch the keyboard control program:<br>
+rosrun teleop_twist_keyboard<br>
+teleop_twist_keyboard.py<br>
+Now you can control the Jetsron with your keyboard! Your terminal should look like the following:	<br>
+
+<br>
+<img src="keyboard.png" height="70%" width="70%" align="middle"><br>
+Controlling the Jetson remotely with a keyboard.
+<br>
+<h2>Lab #2: Edge Detection</h2>
+<br>
+The following is the code (C++) which allows the Jetson to detect edges and turn away from them with its sonar sensors.
+<img src="edge.png" height="70%" width="70%" align="middle"><br>
+
+<br>
+
+	
+
+
+<br><br>
+
+</div>
+</p>
+</html>
+</body>
