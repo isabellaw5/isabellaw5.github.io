@@ -3,8 +3,16 @@
 
 
 <head>
-<style>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131424144-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-131424144-1');
+</script>
 <style>
 /* Add a black background color to the top navigation */
 /* Add a black background color to the top navigation */
@@ -51,11 +59,10 @@ padding: 0;
 }
 .hero-image {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-  background-image: url("Projects.png");
-
-  /* Set a specific height w height = */
+ 
   /* Position and center the image to scale nicely on all screens */
   height = 60%;
+  background-image: url("Projects.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -86,12 +93,6 @@ padding: 0;
   margin: auto;
   font-family: "Courier New", Courier, monospace;
 }
-nav {
-  text-decoration: none;
-	color: white;
-	font-family: "Courier New", Courier, monospace;
-}
-
 </style>
 </head>
 
@@ -105,11 +106,9 @@ nav {
 <div class="hero-image">
   <div class="hero-text">
   </div>
-</div>
 <body><p>
 <br>
 <center>
-<nav>
 <a href="/Arm.html" style="text-decoration:none">Prosthetic Arm Design</a>
 <br>
 <a href="/Rehabilibuddies.html" style="text-decoration:none">Dynamic Hand Spasticity Brace</a>
@@ -122,12 +121,9 @@ nav {
 <br>
 <a href="/Robotics.html" style="text-decoration:none">Self-Driving Robot</a>
 <br>
-</nav>
 </center>
  
 <br><br>
 </center>
-</div>
-</p>
 </html>
 </body>
