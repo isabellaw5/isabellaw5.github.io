@@ -3,6 +3,7 @@
 
 
 <head>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131424144-1"></script>
 <script>
@@ -33,12 +34,12 @@
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: #333;
-  color: #2690c9;
+  color: #14647c;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #2690c9;
+  background-color: #14647c;
   color: white;
 }
 
@@ -46,7 +47,7 @@ body, html {
 text-decoration: none;
     height: 100%;
 	background-color: white;
-	color: black;
+	color: white;
 	font-family: "Courier New", Courier, monospace;
 	
 }
@@ -58,11 +59,10 @@ padding: 0;
 }
 .hero-image {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-  background-image: url("banner.png");
-
-  /* Set a specific height */
-  height: 90%;
+ 
   /* Position and center the image to scale nicely on all screens */
+  height: 60%;
+  background-image: url("Projects.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -93,29 +93,70 @@ padding: 0;
   margin: auto;
   font-family: "Courier New", Courier, monospace;
 }
-.a {
-	text-decoration: none;
-	color: white;
-	font-family: "Courier New", Courier, monospace;
-	
-} 
+
+div.arm {
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  float: left;
+}
+
+div.rehab {
+  width: 250px;
+  margin-left: 260px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+}
+
+div.container {
+  padding: 10px;
+}
 
 </style>
 </head>
 
 <div class="topnav" align = "right">
   <a class="active" href="index">Home</a>
-  <a href="MyWork">My Work</a>
   <a href="Contact">Contact</a>
-  <a href="https://www.linkedin.com/in/isabella-watson-786b8a130/">LinkedIn</a>
+  <a href="https://www.linkedin.com/in/isabella-watson-786b8a130/">LinkedIn</a><img src ="linkedin.png" height = "15px" width = "15px">
 </div>
-
+<body>
 <div class="hero-image">
   <div class="hero-text">
   </div>
+  </div>
+<p>
+<br>
+
+<div class="arm">
+  <img src="Arm3.png" alt="Prosthetic Arm" style="width:100%" height = "150px">
+  <div class="container">
+    <p><a href="/Arm.html" style="text-decoration:none" color = black align = left>Prosthetic Arm Design</a></p>
+  </div>
 </div>
 
-<body>
+<div class="rehab">
+  <img src="rehabiliBall.png" alt="Spasticity Brace" style="width:100%" height = "150px">
+  <div class="container">
+    <p><a href="/Rehabilibuddies.html" style="text-decoration:none" color = black align = left>Patented Medical Brace</a></p>
+  </div>
+</div>
+
+<a href="/Rehabilibuddies.html" style="text-decoration:none">Dynamic Hand Spasticity Brace</a>
+<br>
+<a href="/AnimalCell.html" style="text-decoration:none">CAD Design Portfolio</a>
+<br>
+<a href="/ECG.html" style="text-decoration:none">ECG</a>
+<br>
+<a href="/IQTest.html" style="text-decoration:none">"The Ultimate IQ Test" Report</a>
+<br>
+<a href="/Robotics.html" style="text-decoration:none">Self-Driving Robot</a>
+<br>
+</div>
+</div>
+</center>
+ 
+<br><br>
+</center>
 </html>
 </body>
-
