@@ -91,56 +91,6 @@ padding: 0;
   font: Open Sans;
 }
 
-div.box {
-  float: center;
-    margin-left: 360px;
-	margin-right: 300px;
-  
-  }
-  
-div.arm {
-  width: 250px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  float: left;
-}
-
-div.manual {
-  width: 250px;
-  margin-left: 300px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
-
-div.rehab {
-  width: 250px;
-  float: left;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  float: center;
-}
-
-div.dip {
-  width: 250px;
-  margin-left: 300px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
-
-div.feelinDNA {
-  width: 250px;
-  float: left;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  float: center;
-}
-
-div.Jetson {
-  width: 250px;
-  margin-left: 300px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
 
 div.container {
   padding: 5px;
@@ -154,6 +104,22 @@ img:hover {
   opacity: .7;
 }
 
+
+.float-container {
+    border: 3px;
+    padding: 20px;
+}
+
+.float-child {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+	width: 20%;
+    float: left;
+	margin-left: 7%;
+    padding: 20px;
+    border: 2px;
+	margin-bottom: 25px;
+}  
 </style>
 </head>
 
@@ -169,49 +135,15 @@ img:hover {
   </div>
 <p>
 <br>
-<div class="box">
-<div class="arm">
-  <img src="Arm3.png" alt="Prosthetic Arm" style="width:100%" height = "150px">
-  <div class="container">
-    <p><a href="/Arm.html" style="text-decoration:none" color = black align = left>Prosthetic Arm Design</a></p>
-  </div>
-</div>
-
-
-<div class="manual">
-  <img src="MS1.png" alt="Manual System" style="width:100%" height = "150px">
-  <div class="container">
-    <p><a href="/Manual.html" style="text-decoration:none" color = black align = left>CMS Manual System</a></p>
-  </div>
-</div>
-<br>
-<br>
-<div class="rehab">
-  <img src="rehabiliBall.png" alt="Spasticity Brace" style="width:100%" height = "150px">
-  <div class="container">
-    <p><a href="/Rehabilibuddies.html" style="text-decoration:none" color = black align = left>Patented Medical Brace</a></p>
-  </div>
-</div>
-
-
-<div class="dip">
-  <img src="dip.png" alt="Dip Station" style="width:100%" height = "150px">
-  <div class="container">
-    <p><a href="/DipStation.html" style="text-decoration:none" color = black>CMS Dip Coating Station</a></p>
-  </div>
-</div>
-
-<br>
-<br>
-
-<div class="feelinDNA">
+<div class="float-container">
+<div class="float-child">
   <img src="cell2.png" alt="Biological Models" style="width:100%" height = "150px">
   <div class="container">
     <p><a href="/AnimalCell.html" style="text-decoration:none" color = black align = left>Biological CAD Models</a></p>
   </div>
 </div>
 
-<div class="Jetson">
+<div class="float-child">
   <img src="Jetson2.jpg" alt="Robotics" style="width:100%" height = "150px">
   <div class="container">
     <p><a href="/Robotics.html" style="text-decoration:none" color = black>Self-Driving Car</a></p>
@@ -219,7 +151,34 @@ img:hover {
 </div>
 
 
+<div class="float-child">
+  <img src="Arm3.png" alt="Prosthetic Arm" style="width:100%" height = "150px">
+  <div class="container">
+    <p><a href="/Arm.html" style="text-decoration:none" color = black align = left>Prosthetic Arm Design</a></p>
+  </div>
 </div>
+
+<div class="float-child">
+  <img src="MS1.png" alt="Manual System" style="width:100%" height = "150px">
+  <div class="container">
+    <p><a href="/Manual.html" style="text-decoration:none" color = black align = left>CMS Manual System</a></p>
+  </div>
+</div>
+<div class="float-child">
+  <img src="rehabiliBall.png" alt="Spasticity Brace" style="width:100%" height = "150px">
+  <div class="container">
+    <p><a href="/Rehabilibuddies.html" style="text-decoration:none" color = black align = left>Patented Medical Brace</a></p>
+  </div>
+</div>
+
+<div class="float-child">
+  <img src="dip.png" alt="Dip Station" style="width:100%" height = "150px">
+  <div class="container">
+    <p><a href="/DipStation.html" style="text-decoration:none" color = black>CMS Dip Coating Station</a></p>
+  </div>
+</div>
+</div>
+
 <br>
 <br>
 </html>
