@@ -92,7 +92,9 @@ padding: 0;
   font: Open Sans;
 }
 
-
+.a{
+	font: black;
+}
 div.container {
   padding: 5px;
 }
@@ -109,6 +111,7 @@ img:hover {
 .float-container {
     border: 3px;
     padding: 20px;
+	font: black;
 }
 
 .float-child {
@@ -125,9 +128,14 @@ img:hover {
 div.Bodycontainer {
   padding-left: 5%;
   padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
   text-align: left;
-  background-color: #F2F9FE;
+  background-color: #4AB0F8; /* For browsers that do not support gradients */
+  background-image: linear-gradient(white, #4AB0F8, white); /* Standard syntax (must be last) */
+
 }
+
 
 
 /* Button used to open the contact form - fixed at the bottom of the page */
@@ -198,6 +206,7 @@ div.Bodycontainer {
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+  z-index: 1;
 }
 
 </style>
