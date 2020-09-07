@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -34,21 +35,25 @@
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: #333;
-  color: #14647c;
+  color: #4AB0F8;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #14647c;
+  background-color: #4AB0F8;
   color: white;
 }
+
 
 body, html {
 text-decoration: none;
     height: 100%;
 	background-color: white;
-	color: white;
+	color: black;
+	margin: auto;
 	font-family: "Courier New", Courier, monospace;
+	padding: 0px;
+	margin-top: 0px; 
 	
 }
 
@@ -61,8 +66,8 @@ padding: 0;
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
  
   /* Position and center the image to scale nicely on all screens */
-  height: 60%;
-  background-image: url("hero.png");
+  height: 75%;
+  background-image: url("ManualHero.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -80,7 +85,7 @@ padding: 0;
 }
 
 .header {
-  padding: 60px;
+  padding:  0px;
   text-align: center;
   background: #A6D3F7;
   color: white;
@@ -88,90 +93,227 @@ padding: 0;
   font: Open Sans;
 }
 
-.body {
-  width: 300px;
-  margin: auto;
-  font-family: "Courier New", Courier, monospace;
+.a{
+	font: black;
 }
-
-div.arm {
-  width: 250px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  float: left;
-}
-
-div.manual {
-  width: 250px;
-  margin-left: 320px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
-
-div.rehab {
-  width: 250px;
-  margin-left: 260px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
-
 div.container {
+  padding: 5px;
+}
+
+img {
+  opacity: 1.0;
+}
+
+
+.float-container {
+    border: 3px;
+    padding: 20px;
+	height: 100%;
+	font: black;
+}
+
+.float-child {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+	width: 40%;
+    float: center;
+    padding: 20px;
+    border: 2px;
+	margin-bottom: 25px;
+}  
+
+
+
+div.Bodycontainer {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  text-align: left;
+  background-color: #2E8B72; /* For browsers that do not support gradients */
+  background-image: linear-gradient(#2E8B72, white); /* Standard syntax (must be last) */
+
+}
+
+div.Bodycontainer2 {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  text-align: left;
+
+}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 250px;
+  font-size: 15px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
   padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4AB0F8;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a blue background color to the cancel button */
+.form-container .cancel {
+  background-color: #4AB0F8;
+  font-size: 15px;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+  z-index: 1;
 }
 
 </style>
 </head>
-
-<div class="topnav" align = "left">
+<body><html>
+<div class="topnav">
   <a class="active" href="index">Home</a>
-  <a href="Contact">Contact</a>
-  <a href="https://www.linkedin.com/in/isabella-watson-786b8a130/">LinkedIn</a><img src ="linkedin.png" height = "15px" width = "15px">
+ 
+<button class="open-button" onclick="openForm()">Contact Me</button>
+
+<div class="form-popup" id="myForm">
+  <form  class="form-container">
+   <center> <h1>Contact Me</h1><br><br>
+
+    <center><label for="email"><b>Email:</b></label></center>
+	<input type="text" value="IsabellaElizabethWatson@gmail.com" id="myInput" style="width:85%">
+<button onclick="myFunction()" font= >Copy text</button>
+
+<script>
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+</script>
+    
+	<br><br>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
 </div>
-<body>
+</center>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+  <a href="https://www.linkedin.com/in/isabella-watson-786b8a130/">LinkedIn</a><img src ="linkedin.png" height = "35px" width = "20px">
+</div>
 <div class="hero-image">
   <div class="hero-text">
   </div>
   </div>
-<p>
-<br>
 
-<div class="arm">
-  <img src="Arm3.png" alt="Prosthetic Arm" style="width:100%" height = "150px">
-  <div class="container">
-    <p><a href="/Arm.html" style="text-decoration:none" color = black align = left>Prosthetic Arm Design</a></p>
+<br>
+</center>
+    <div class="Bodycontainer2">
+	<h2>1.0 Background </h2>
+
+Operational amplifier circuits can be constructed to serve as an EKG. There are several important design considerations when building ECGs. These include source impedance, signal frequency, and signal size. When measurng source impedance, or the resistance of the source of the electrical signal, it is important not to draw current from the input signal, which is the patient when building an ECG. If you calculate source impedance too low, and subsequently build your circuit around that measurement, you will draw current from the input signal since your circuit is not getting enough voltage from external power sources. Signal frequency is the frequency of the signal being produced--the heartbeat we are measuring. It is only important to input the peaks and troughs of the ECG signal into our circuit; the frequency of the heartbeat is small (0-3Hz), so bandpass filters can be used to pass only these frequencies through and eliminate signal noise (ambient lighting, 60Hz noise, etc.). The heartbeat's electrical potential ranges from ~10-100 μV, so a large gain is desired if any readable output is to be attained. I first built a physical filtering system to process the heartbeat, then used ADC (analog to digital conversion) in Multisim to process the wave form. Digital filtering is preferable, as it creates a cleaner and more consistent signal output due to decreased signal attenuation and automated filter adjustments. ADC also prints the signal in a cleaner user interface than physical filtering, which requires a function generator.  <br>
+<br>
+<h2>2.0 Signal Filtering </h2>
+<br>
+A 6mV 1Hz sine wave from the function generator was used to simulate a heartbeat. The filter schematic is depicted in fig 3. The filtered output was cleaner and effectively reduced signal attenuation. The DC offset was eliminated, producing a signal of ~1V lesser in amplitude, as expected (with a gain of almost unity, the signal should be the op-amp output minus 1). This is, however, for a function generator input. In reality a heart signal is much messier (baseline wander, mains frequency/lighting noise, muscle noise, RF noise etc.), possibly necessitating a notch filter to first filter out the DC interference, then 60Hz mid-range interference without cutting out too much of the heart signal. I used an LM324 operational amplifier to increase the magnitude of the signal.
+<br><center>
+<div class="float-child">
+  <img src="filter.png" alt="Biological Models" style="width:100%" height = "100%">
+    <div class="container">
+    <p>Bandpass Circuit Schematic (rendered in Multisim). Note: The filter input signal was actually 2Vpk, 1Hz.</p>
   </div>
-</div>
-
-
-<div class="manual">
-  <img src="MS1.png" alt="Manual System" style="width:100%" height = "150px">
-  <div class="container">
-    <p><a href="/Manual.html" style="text-decoration:none" color = black align = left>CMS Manual System</a></p>
   </div>
-</div>
-
-<div class="rehab">
-  <img src="rehabiliBall.png" alt="Spasticity Brace" style="width:100%" height = "150px">
+  <div class="float-child">
+    <img src="output_input.png" alt="Biological Models" style="width:100%" height = "100%">
   <div class="container">
-    <p><a href="/Rehabilibuddies.html" style="text-decoration:none" color = black align = left>Patented Medical Brace</a></p>
+    <p>AD623 Instrumentation amplifier filtered output signal. <b> Top:</b> filtered signal <b>Bottom:</b> Input Signal</p>
   </div>
-</div>
-
-<a href="/Rehabilibuddies.html" style="text-decoration:none">Dynamic Hand Spasticity Brace</a>
-<br>
-<a href="/AnimalCell.html" style="text-decoration:none">CAD Design Portfolio</a>
-<br>
-<a href="/ECG.html" style="text-decoration:none">ECG</a>
-<br>
-<a href="/IQTest.html" style="text-decoration:none">"The Ultimate IQ Test" Report</a>
-<br>
-<a href="/Robotics.html" style="text-decoration:none">Self-Driving Robot</a>
-<br>
-</div>
 </div>
 </center>
- 
-<br><br>
+<br>
+<h2>3.0 AD Conversion </h2>
+<br>
+After building a physical filtering system, I wanted to use ADC (analog to digital conversion) to create a usable signal. I used LabView for my signal processing.
+Displaying the processed pulse, or heartbeat, is the final step in creating a functional ECG. I used a 5mV pk, 1Hz signal (correlating to 60bpm) from the function generator on pulse mode to simulate a  repetitive heartbeat. The concept for my LabView VI is ADC: It takes the EKG analog input and displays the waveform, running peak amplitude with respect to a threshold voltage, and the BPM of the EKG signal for clinical use. Using the DAQ assistant sub-VI, data from the DAQ was acquired and set such that the maximum and minimum VI inputs were in line with the other inputs. My settings included continuous sampling (1k samples at 1kHz sampling frequency). The signal was then fed into a low pass filter sub-VI with a 5Hz cut off frequency, which produced a clear signal which displayed on our “EKG monitor” plot in real time.
+<br>
+	Several steps were required to provide an accurate BPM calculation and display. First, a peak detector was used to find each QRS complex (the largest peak in a heartbeat). Each peak was recorded, allowing for BPM calculations based on pulse width between peaks. Each iteration is passed through the shift register into the while loop so that it be input back into the calculation to count the BPM and time passed. Finally, the amplitudes from the peak detector are implemented into an array maximum and minimum sub-VI, so that it can convert the array values to analog peak values so that I can then compare them and use that logic for the true/false Boolean for the amplitude case structure. Basically: if the peak exceeds 0 and exceeds the set threshold, then the case structure allows for that peak amplitude to be displayed. <br>
+	This setup worked perfectly, displaying accurate BPM and waveform seen below.
+<br><center><br>
+<div class="float-child">
+  <img src="ADC.png" alt="Biological Models" style="width:100%" height = "100%">
+    <div class="container">
+    <p>Bandpass Circuit Schematic (rendered in Multisim). Note: The filter input signal was actually 2Vpk, 1Hz.</p>
+  </div>
+  </div>
+  <div class="float-child">
+    <img src="ADC_O.png" alt="Biological Models" style="width:100%" height = "100%">
+  <div class="container">
+    <p>Completed AD623 instrumentation amplifier filtered output signal.</p>
+  </div>
+</div>
 </center>
+
+	
+</div>
+<br>
+<br>
 </html>
 </body>
+
