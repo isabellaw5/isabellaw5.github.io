@@ -35,12 +35,12 @@
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: #333;
-  color: #D1EAFE;
+  color: #2E8B72;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #4AB0F8;
+  background-color: #2E8B72;
   color: white;
 }
 
@@ -67,7 +67,7 @@ padding: 0;
  
   /* Position and center the image to scale nicely on all screens */
   height: 75%;
-  background-image: url("FeelinDNA.png");
+  background-image: url("EKGHero.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -130,8 +130,8 @@ div.Bodycontainer {
   padding-bottom: 1%;
   padding-top: 1%;
   text-align: left;
-  background-color: #4AB0F8; /* For browsers that do not support gradients */
-  background-image: linear-gradient(white, #4AB0F8, white); /* Standard syntax (must be last) */
+  background-color: #2E8B72; /* For browsers that do not support gradients */
+  background-image: linear-gradient(#2E8B72, white); /* Standard syntax (must be last) */
 
 }
 
@@ -205,7 +205,7 @@ div.Bodycontainer2 {
 
 /* Add a blue background color to the cancel button */
 .form-container .cancel {
-  background-color: #4AB0F8;
+  background-color: #2E8B72;
   font-size: 15px;
 }
 
@@ -262,15 +262,13 @@ function closeForm() {
   <div class="hero-text">
   </div>
   </div>
-    <div class="Bodycontainer">
-<center>
-During my undergraduate education I built an ECG from scratch using standard electrical components and LabView. </div>
+
 <br>
 </center>
     <div class="Bodycontainer2">
 	<h2>1.0 Background </h2>
 
-Operational amplifier circuits can be constructed to serve as an EKG. There are several important design considerations when building ECGs. These include source impedance, signal frequency, and signal size. When measurng source impedance, or the resistance of the source of the electrical signal, it is important not to draw current from the input signal, which is the patient when building an ECG. If you calculate source impedance too low, and subsequently build your circuit around that measurement, you will draw current from the input signal since your circuit is not getting enough voltage from external power sources. Signal frequency is the frequency of the signal being produced--the heartbeat we are measuring. It is only important to input the peaks and troughs of the ECG signal into our circuit; the frequency of the heartbeat is small (0-3Hz), so bandpass filters can be used to pass only these frequencies through and eliminate signal noise (ambient lighting, 60Hz noise, etc.). Problems can arise with sound distorting the signal. Further, the signal size ranges from ~10-100 μV, so a large gain is desired if any readable output is to be attained. I first built a physical filtering system to process the heartbeat, then used ADC (analog to digital conversion) in Multisim to process the wave form. Digital filtering is preferable, as it creates a cleaner and more consistent signal output due to decreased signal attenuation and automated filter adjustments. ADC also prints the signal in a cleaner user interface than physical filtering, which requires a function generator.  <br>
+Operational amplifier circuits can be constructed to serve as an EKG. There are several important design considerations when building ECGs. These include source impedance, signal frequency, and signal size. When measurng source impedance, or the resistance of the source of the electrical signal, it is important not to draw current from the input signal, which is the patient when building an ECG. If you calculate source impedance too low, and subsequently build your circuit around that measurement, you will draw current from the input signal since your circuit is not getting enough voltage from external power sources. Signal frequency is the frequency of the signal being produced--the heartbeat we are measuring. It is only important to input the peaks and troughs of the ECG signal into our circuit; the frequency of the heartbeat is small (0-3Hz), so bandpass filters can be used to pass only these frequencies through and eliminate signal noise (ambient lighting, 60Hz noise, etc.). The heartbeat's electrical potential ranges from ~10-100 μV, so a large gain is desired if any readable output is to be attained. I first built a physical filtering system to process the heartbeat, then used ADC (analog to digital conversion) in Multisim to process the wave form. Digital filtering is preferable, as it creates a cleaner and more consistent signal output due to decreased signal attenuation and automated filter adjustments. ADC also prints the signal in a cleaner user interface than physical filtering, which requires a function generator.  <br>
 <br>
 <h2>2.0 Signal Filtering </h2>
 <br>
