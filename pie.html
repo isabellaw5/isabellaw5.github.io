@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131424144-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-131424144-1');
+</script>
+<style>
+
+
+
+</style>
+</head>
+
+
+<body>
+
+
+
+
+<br><br>
+
+
+<button onclick="bluetooth()" font= >Pie Time</button>
+<script>
+function bluetooth(){
+button.addEventListener('pointerup', function(event) {
+  // Call navigator.bluetooth.requestDevice
+});
+
+
+
+
+navigator.bluetooth.requestDevice({
+  filters: [{
+    name: 'HC-06'
+  }],
+
+})
+.then(device => { /* ... */ })
+.catch(error => { console.log(error); });
+
+
+
+navigator.bluetooth.requestDevice({ filters: [{ name: ['HC-06'] }] })
+.then(device => {
+  // Human-readable name of the device.
+  console.log(device.name);
+
+  // Attempts to connect to remote GATT Server.
+  return device.gatt.connect();
+})
+.then(server => { /* ... */ })
+.catch(error => { console.log(error); });
+}
+
+
+
+
+
+
+
+
+
+
+navigator.bluetooth.requestDevice({ filters: [{ services: ['pie'] }] })
+.then(device => device.gatt.connect())
+.then(server => server.getPrimaryService('pie'))
+.then(service => service.getCharacteristic('pie time'))
+.then(characteristic => {
+  // Writing 1 is the signal to reset energy expended.
+  var resetEnergyExpended = Uint8Array.of(1);
+  return characteristic.writeValue(resetEnergyExpended);
+})
+.then(_ => {
+  console.log('Pie');
+})
+.catch(error => { console.log(error); });
+</script>
+</html>
+</body>
