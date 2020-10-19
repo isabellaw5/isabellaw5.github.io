@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 
+
+<head>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131424144-1"></script>
 <script>
@@ -31,14 +34,15 @@
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: #333;
-  color: #14647c;
+  color: #148dfa;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #14647c;
+  background-color: #148dfa;
   color: white;
 }
+
 
 body, html {
 text-decoration: none;
@@ -61,8 +65,8 @@ padding: 0;
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
  
   /* Position and center the image to scale nicely on all screens */
-  height: 60%;
-  background-image: url("hero.png");
+  height: 75%;
+  background-image: url("prostheticBanner.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -88,42 +92,9 @@ padding: 0;
   font: Open Sans;
 }
 
-div.box {
-  align: center;
-    margin-left: 290px;
-	margin-right: 290px;
-  
-  }
-  
-div.arm {
-  width: 250px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  float: left;
+.a{
+	font: black;
 }
-
-div.manual {
-  width: 250px;
-  margin-left: 300px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
-
-div.rehab {
-  width: 250px;
-  float: left;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  float: center;
-}
-
-div.dip {
-  width: 250px;
-  margin-left: 300px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
-
 div.container {
   padding: 5px;
 }
@@ -132,7 +103,42 @@ img {
   opacity: 1.0;
 }
 
-img:hover {
+
+
+
+.float-container {
+    border: 3px;
+    padding: 50px;
+	font: black;
+
+
+}
+
+div.container3 {
+	margin-left: 10%;
+}
+
+.float-child {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+	width: 35%;
+    float: left;
+	margin-left: 7%;
+    padding: 20px;
+    border: 2px;
+	margin-bottom: 25px;
+	
+}  
+
+div.Bodycontainer {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  text-align: left;
+  background-color: #4AB0F8; /* For browsers that do not support gradients */
+  background-image: linear-gradient(white, #4AB0F8, white); /* Standard syntax (must be last) */
+
 }
 
 
@@ -196,14 +202,40 @@ img:hover {
   opacity: 0.8;
 }
 
-/* Add a red background color to the cancel button */
+/* Add a blue background color to the cancel button */
 .form-container .cancel {
   background-color: #4AB0F8;
+  font-size: 15px;
 }
 
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+  z-index: 1;
+}
+div.Bodycontainer2 {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  text-align: left;
+
+}
+
+div.overflow {
+overflow: hidden;
+    white-space: nowrap;
+	}
+
+code { background-color: #eee; }
+
+pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  width: 70%;
+
 }
 
 </style>
@@ -212,15 +244,15 @@ img:hover {
 <div class="topnav">
   <a class="active" href="index">Home</a>
  
-<button class="open-button" onclick="openForm()">Contact</button>
+<button class="open-button" onclick="openForm()">Contact Me</button>
 
 <div class="form-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
+  <form action="" class="form-container">
    <center> <h1>Contact Me</h1><br><br>
 
     <center><label for="email"><b>Email:</b></label></center>
-	<input type="text" value="IsabellaElizabethWatson@gmail.com" id="myInput">
-<button onclick="myFunction()">Copy text</button>
+	<input type="text" value="IsabellaElizabethWatson@gmail.com" id="myInput" style="width:85%">
+<button onclick="myFunction()" font= >Copy text</button>
 
 <script>
 function myFunction() {
@@ -253,47 +285,207 @@ function closeForm() {
   <div class="hero-text">
   </div>
   </div>
+  
+  <body>
+    <div class="Bodycontainer2"><p>
+	
+<h2>1.0 Background </h2>
+<br>
+The <i>RehabiliBall</i> is a patent-pending medical device I built in undergrad & continue to work on now. Through the i4 Engineering competition, I secured a total of $13,000 which I used to hire a patent attorney. This is a rehabilitative device to help hand spasticity. The patient straps on the brace. There is a ball in the palm of the brace; when the device is powered on, a 5V air pump pushes air into the rubber ball for 5 seconds, pauses for 5 seconds, detaches, then a solenoid valve is engaged which draws out the air. Thie process effectively inflates & deflates the rubber ball, which allows the patient to passively exercise their clenched fingers.
+<br><br>
+The circuit consists of an Arduino Uno with a motor drive shield stacked on top. A motor shield is highly recommended when driving motors/pumps with an Arduino, as they can supply higher current (1.2A vs. an Arduino's 500mA output), higher voltage, and provide better control. The motor shield is connected to a 5V aquarium pump, as well as a 12V solenoid valve (normally closed = does not vacuum out air when voltage is applied/vacuums out air when ground is applied).
+<br><br>
+<b><h2>2.0 Final Product</h2></b> 
+<br>
+</div>
+<div class ="overflow">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="Arm9.png" alt="Manual System" style="width:100%" height = "100%">
+  <div class="container">
+    <p>CMS Manual System</p>
+  </div>
+</div>
+</div>
+</div>
+
+<p><p>
+
+<div class ="overflow">
+    <div class="Bodycontainer2"><p>
+<b><h2>3.0 Videos</h2></b> 
+</div>
+</div>
+<div class ="overflow">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="armgif.gif" alt="Biological Models" style="width:100%" height = "100%">
+  <div class="container">
+    <p>Picking up a Water Bottle</p>
+  </div>
+</div>
+</div>
+
+
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="armgif2.gif" alt="Biological Models" style="width:100%" height = "100%">
+  <div class="container">
+    <p>Finger Functionality</p>
+  </div>
+</div>
+</div></div>
+
+</div>
+
+
+
+<div class ="overflow">
+    <div class="Bodycontainer2"><p>
+<h2>3.0 Solidworks Assembly </h2>
+
+</div>
+
+<div class ="overflow">
+<div class="float-container">
+<div class="float-child" style = "width:35%">
+  <img src="Arm3.png" alt="Biological Models" style="width:100%" height = "250px">
+  <div class="container">
+    <p>Solidworks Assembly Isometric View</p>
+  </div>
+</div>
+
+
+<div class="float-child" style = "width:35%">
+  <img src="Arm7.png" alt="Biological Models" style="width:100%" height = "250px">
+  <div class="container">
+    <p>Solidworks Assembly Back View</p>
+  </div>
+</div>
+
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="Arm5.png" alt="Biological Models" style="width:90%" height = "80%">
+  <div class="container">
+    <p>Solidoworks Top & Bottom View</p>
+  </div>
+</div>
+
+
+
+<div class="float-child" style = "width:70%">
+  <img src="Arm6.png" alt="Biological Models" style="width:100%" height = "260px">
+  <div class="container">
+    <p>Solidworks Assembly Side View</p>
+  </div>
+</div>
+
+
+
+<div class="float-child" style = "width:70%">
+  <img src="Arm8.png" alt="Biological Models" style="width:100%" height = "260px">
+  <div class="container">
+    <p>Solidworks Assembly Top View</p>
+  </div>
+</div>
+</div></div>
+
+</div>
 <p>
-<br>
-<div class="box">
-
-During my senior year (2018-2019), I developed a dyanmic brace for the treatment of hand spasticity. I am working on acquiring a patent for the design. If you would like more details, I would be happy to share more upon request!
-<br><br>
-
-<br><br>
-<center>
-<img src="Casing.png" alt="Completed Animal Cell" height="50%" width="50%" align="middle">
-<br><br>
-External chassis of the device provides electrical isolation for patient safety.
-<br><br>
-<br>
-<br>
-<img src="interior.png" alt="Completed Animal Cell" height="50%" width="50%" align="middle">
-<br><br>
-Chassis interior for electrical components.
-
-<br><br>
-<img src="exterior.png" alt="Completed Animal Cell" height="50%" width="50%" align="middle">
-<br><br>
-Completed circuit including: air pump for inflation, solenoid valve for deflation, and a pressure transducer to measure pressure in the silicone ball.
-<br><br>
-<img src="brace.png" alt="Completed Animal Cell" height="20%" width="30%" align="middle">
-<br><br>
-Final product; an iphone application activates passive stretching of the hand.
-<br>
-<br>
-<b>CODE</b>
-<br>
-<br>
-<embed type="image/png" src="rehabcode.png"  width="100%" height="100%">
-</center>
-<br>
 
 
 
+<div class ="overflow">
+    <div class="Bodycontainer2"><p>
+<br>
+<h2>4.0 Circuit Diagram </h2>
+<p>
+
+</div>
+
+<div class ="overflow">
+<div class="float-container">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="armcircuit.png" alt="Biological Models" style="width:100%" height = "70%">
+  <div class="container">
+  <div class = "overflow">
+    <p>The circuit used in conjunction with the Arduino Nano utilizes <br> two switches, a pullup resistor, and a high-torque servo motor.<br> The first switch (Sw1) attaches power (9V [not 5V] battery) <br>to the Arduino and servo motor. <br>The second switch (Sw2) connects A0 (3.3V) to the pull-up resistor,<br> which inputs 3.3V (or a binary "1") to the nano. <br>This signals the Nano to turn the servo motor 180 degrees.<br> All grounds are common.<br><b> NOTE: </b> This is an updated/simplified circuit from the origonal circuit I made (the one seen in the images).</p>
+  </div>
+  </div>
+</div>
+</div></div>
+
+
+</div>
+<div class ="overflow">
+
+    <div class="Bodycontainer2"><p>
+	<h2>5.0 Code </h2>
+<p>
+<pre>
+  <code>
+#include <AFMotor.h> //needed to drive motor
+#include <Wire.h> //needed for circuits
+#include <LiquidCrystal_I2C.h> //needed w LCD i2C Library 
+
+
+AF_DCMotor pump(1, MOTOR12_64KHZ); // create motor #1, 64KHz pwm for greater inflation power
+
+AF_DCMotor vacuum(2, MOTOR12_8KHZ); // create motor #2, 8KHz pwm
+
+ 
+LiquidCrystal_I2C lcd(0x27, 16, 2); 
+//LCDvariablename(address [use find_lcd_screen_address program to locate], 16x2 characters)
+
+
+
+void setup() {
+  Serial.begin(9600); //begin serial communication (9600 for LCD)
+  lcd.begin();//Initializing display
+  lcd.backlight();//To Power ON the back light NOTE: if backlight doesn't turn on, ensure power jumper is attached
+  lcd.setCursor(0,0); //use first row
+  lcd.print("    WELCOME     ");  //print mode
+  pump.setSpeed(255);  // Set motor 1 to maximum speed
+  vacuum.setSpeed(200);  // Set solenoid valve to maximum speed
+  delay(100); //delay
+  }
+
+//The following loop runs forever
+void loop() {
+  lcd.clear(); //
+  lcd.setCursor(0,0); //use first row
+  lcd.print("    INFLATING     ");  ////print state of device (inflating)
+  pump.run(FORWARD);      // turn on pump
+  delay(5000); //run for 5000ms
+  pump.run(RELEASE); //detach the motor to conserve power
+  lcd.clear(); //clear the screen
+  lcd.setCursor(0,0); //use first row
+  lcd.print("     HOLDING     ");  //print state of device (pausing on inflation)
+  delay(5000); //delay 5000ms
+  lcd.clear(); //clear the screen
+  lcd.setCursor(0,0); //use first row
+  lcd.print("    DEFLATING     ");  //print state of device (deflating)
+  vacuum.run(BACKWARD);      
+  //reverse polarity on solenoid valve (since it is normally closed, ground will keep it closed)
+  delay(1000); //allow 1s to release pressure
+  vacuum.run(RELEASE); //release the solenoid valve
+  delay(500); //delay .5 seconds
+
+}
+
+
+ 
+ 
+
+
+ 
+  </code>
+</pre>
+</div>
+</span>
 </center>
 </div>
 </p>
 </html>
 </body>
-
