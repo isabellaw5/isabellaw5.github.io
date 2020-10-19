@@ -227,7 +227,8 @@ overflow: hidden;
     white-space: nowrap;
 	}
 
-code { background-color: #eee; }
+code { background-color: #eee; 
+width: 100%;}
 
 pre code {
   background-color: #eee;
@@ -291,7 +292,8 @@ function closeForm() {
 	
 <h2>1.0 Background </h2>
 <br>
-The <i>Manual System</i> is a commercial product I built for my employer, Cell Microsystems (CMS). The purpose of the <i>Manual System</i> is to extend a linear stepper motor by a distance set by the user. I achieved this by converting an analog input (0-1023) from a 10K potentiometer to mm with an Arduino. I coded the Arduiuno to output a pulse-width-modulated (PWM) signal to turn the motor a certain number of steps which correlate to the distance set by the potentiometer.
+The <i>Manual System</i> is a commercial product I built for my employer, Cell Microsystems (CMS). The purpose of the <i>Manual System</i> is to extend a linear stepper motor by a distance set by the user. I achieved this by converting an analog input (0-1023) from a 10K potentiometer to mm with an Arduino. I coded the Arduiuno to output a pulse-width-modulated (PWM) signal to turn the motor a certain number of steps which correlate to the distance set by the potentiometer. A motor drive shield was used in conjunctoin with the Arduino Uno. <br><br>
+<b>*NOTE: This product's manufacture is confidential and thus I will not provide circuit diagrams or too much detail.</b>
 
 <br><br>
 <b><h2>2.0 Final Product</h2></b> 
@@ -349,12 +351,7 @@ The <i>Manual System</i> is a commercial product I built for my employer, Cell M
 
 <div class ="overflow">
 <div class="float-container">
-<div class="float-child" style = "width:35%">
-  <img src="ManualDrawing.png" alt="Biological Models" style="width:100%" height = "250px">
-  <div class="container">
-    <p>Part Drawing</p>
-  </div>
-</div>
+
 
 
 <div class="float-child" style = "width:35%">
@@ -426,78 +423,200 @@ The <i>Manual System</i> is a commercial product I built for my employer, Cell M
 <p>
 <pre>
   <code>
-#include <Servo.h>
+#include <AFMotor.h> //needed to drive motor
+#include <Wire.h> //needed for circuits
+#include <LiquidCrystal_I2C.h> //needed w LCD i2C Library 
 
-Servo myservo;  // create servo object to control a servo
+AF_Stepper motor(20,1);  //20 steps/rev w motor; Motor connected to port 1 (M1/M2)
 
-int flex = 0;    // flex position (0 degrees)
-int extend = 180;   //extended position (180 degrees)
-int servo = 9; //Servo on D11 (PWM pin)
-int power = A0; //set A0 as 3.3V output
-int go = A5; //A5 as input (goes from 0 to 1)
-int state = 0; //state of activation (flexed vs. extended)
-int delta = 0; //see if state has changed
-int flexState = 0; //state variable to control if flexed or not
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
+//LCDvariablename(address [use find_lcd_screen_address program to locate], 16x2 characters)
+
+
+int sensorPin = A1;         //select the input pin for the potentiometer
+int button = A2;            //select the pin for the button
+int sensorValue = 0;        //Initialize variable to store the value coming from the sensor
+int homePos = 700;          //number of steps down to home position; overshot to ensure fully 0
+int state;              //Initialize variable to store value from button
+int motorMove = 0; //state of travel mode
+int travelSteps = 0; //number of steps set by pot
+int travelDist = 0; //number of steps to travel 
+int travelPercent = 0; //percent to display on LCD screen (1-100%)
+int align = 0;              //Initialize variable to check if in alignment mode
+int delta = 0;              //Initialize variable for movement in alignment mode
+int welcome = 1;            //Initialize variable for welcome screen state 
+int reading;           // the current reading from the input pin
+int check = 0;
+
+void welcomeScreen() {
+  motor.step(homePos, BACKWARD, SINGLE); //travel motor to 0 position
+  while (welcome == 1){ //repeat while welcome = 1 is true
+  lcd.setCursor(0,0); //use first row
+  lcd.print("       CMS      ");  //welcome screen 
+  lcd.setCursor(0,1); //use second row        
+  lcd.print("  Manual System  ");  //welcome screen
+  reading = digitalRead(button);  //read state of button (high or low)
+   if ((reading) == HIGH)  {  //While the button is pressed
+       while ((analogRead(sensorPin) < 5) == 1)  {   //loop while the potentiometer is set below 5 (for safety)
+        delay(100); //debounce button
+        reading = digitalRead(button); //check button state to ensure it has been released. 
+		//This allows for the user to press it for any period of time
+        if (reading == LOW){ //if the button is not pressed any longer
+        welcome = 0; //set welcome screen to 0 so it never shows up again
+        align = 1; //allow alignment mode
+        delay(100); //debounce the button (ms)
+        Alignment(); //enter alignment mode (always entered upon first boot up for safety)
+       }
+       }
+   delay(100);                             //debounce the button
+}
+  }
+}
+
+void CheckHold()  { //check if button has been pressed
+  motor.release();                           //release motor when not in alignment or travel
+  delay(100); //debounce the button
+  reading = digitalRead(button); //check state of button (HIGH or LOW)
+   if (reading == HIGH)  {  //if the button is pressed
+    check = 1; //if button has been pressed, loop until it is not pressed anymore
+    while (check == 1) {
+       if ((analogRead(sensorPin) < 5) == 1)  {   //If the potentiometer is set below 5..
+        delay(100);
+        reading = digitalRead(button); //recheck button
+        if (reading == LOW){ //if it has been released
+        motorMove = 0; //disable travel mode
+        align = 1; //allow alignment mode
+        check = 0; //exit check loop
+        delay(100); //debounce button
+        Alignment(); //enter alignment mode.
+       }
+       }
+      else { //if pot is greater than 5
+        delay(100); //debounce
+        reading = digitalRead(button); //read button
+        if (reading == LOW){ //if button is released
+        motorMove = 1; //enable travel mode
+        align = 0; //disable alignment mode
+        check = 0; //exit check loop
+        delay(100); //debounce
+        NeedleRelease(); //enter travel mode
+       }
+     }
+   delay(100);                             //debounce the button
+}
+}
+}
+
+void NeedleRelease()  {
+    align = 0; //disable alignment mode
+    lcd.clear(); //clear screen
+    lcd.setCursor(0,0); //use first row
+    lcd.print("   Traveling   ");  //centered "traveling" state
+    lcd.setCursor(0,1); //use second row
+    lcd.print("      ");  //centering text
+    lcd.print(travelPercent);  //print travel distance (1-100%)
+    lcd.print("%    ");  //print travel distance (1-100%)                                    
+    motor.step(travelSteps, FORWARD, SINGLE); //run motor to the number of steps set by pot
+    delay(100); //pause 100ms
+    motor.step(homePos, BACKWARD, SINGLE); //run motor to home (overshot)
+    delay(500) ;                           //Must wait 500 ms before next release
+    lcd.clear();        //clear screen
+    motor.release();                       //Make the motor "float" so that it does not consume power
+    motorMove = 0; //disable release mode
+    loop(); //return to home loop
+}
+
+void Alignment()  {
+  welcome = 0; //disable welcome screen from now on
+  delay(100); //delay
+  lcd.clear(); //clear LCD screen
+  lcd.setCursor(0,0); //use first row
+  lcd.print(" Alignment Mode");  //print which mode
+  sensorValue = analogRead(sensorPin);                
+  //Read the value from the potentiometer - Range can be from 0 - 1023
+  MOVE = round(sensorValue*0.5);                     
+  //Multiply value by 0.5 to make max number of steps 512 (10.24 mm) 
+  motor.step(MOVE, FORWARD, SINGLE);                  
+  //Move motor to position set by potentiometer
+  delay(100); //delay
+  while (align == 1)  {                              
+  //While in alignment mode execute the following code:
+  sensorValue = analogRead(sensorPin); //0-1023
+  travelPercent = round(sensorValue*.098); //convert potentiometer value to percent
+  lcd.setCursor(0,1); //use second row
+  lcd.print(" Distance: ");  //print travel distance (1-100%)
+  lcd.print(travelPercent);  //print travel distance (1-100%)
+  lcd.print("%    ");  //print travel distance (1-100%) 
+  travelSteps = round(sensorValue*.5); //capping max steps at = 1023/2 = ~512 steps
+  travelDist = travelSteps - delta; //num steps to travel (checks for change from prvious pot value)
+  if (travelDist > 4) { //if change is positive & > 4
+    motor.step(travelDist, FORWARD, SINGLE); //travel difference in steps
+    delta = travelSteps;  //keep track of previous value
+  }
+  else if (travelDist < -4) { //if change is negative & > 4
+    motor.step(abs(travelDist), BACKWARD, SINGLE); //travel difference in steps
+    delta = travelSteps;  //keep track of previous value
+  }
+  motor.release();  //Float the motor to save power
+  delay(10); //small delay
+  reading = digitalRead(button); //check button state
+   if (reading == HIGH)  {  //if the button is pressed
+    check = 1; //loop until button is low
+    while (check == 1) {  //loop until button is low
+        delay(100);
+        reading = digitalRead(button);
+        if (reading == LOW){ //if button is released
+          lcd.clear();
+          lcd.setCursor(0,0); //use second row
+          lcd.print("    Exiting     ");  //print mode
+           lcd.setCursor(0,1); //use second row
+          lcd.print(" Alignment Mode");  //print mode
+          motor.step(travelSteps, BACKWARD, SINGLE);                  //Return the motor to its initial position
+          lcd.clear(); //clear screen
+          delay(100); //delay for noise reduction
+          align = 0; //disable alignment
+          check = 0; //disable check loop
+          delay(100); //delay
+          loop(); //return to home loop
+       }
+   delay(100);                             //debounce the button
+    }
+}
+}
+}
 
 void setup() {
-  myservo.attach(servo);  // attaches the servo on pin 11 to the servo object
-  pinMode(servo, OUTPUT);    // sets servo pin as output
-  pinMode(power, OUTPUT);    // sets A0 as output
-  pinMode(go, INPUT);    // Sets A5 as discrete input
-  digitalWrite(power, HIGH); //write power pin to high always
-  myservo.write(extend); //ensure arm begins in extension
-  myservo.detach(); //detach while not in flexion saves battery power
+  Serial.begin(9600); //begin serial communication (9600 for LCD)
+  lcd.begin();//Initializing display
+  lcd.backlight();//To Power ON the back light NOTE: if backlight doesn't turn on, ensure power jumper is attached
+  lcd.clear(); //clear screen
+  motor.setSpeed(1500);               //Sets speed in steps per second     
+  pinMode(button, INPUT);             //Set the button pin to be an digial input
+  delay(100); //delay
+  welcomeScreen(); //upon start up, open welcome screen
 }
 
-void flexion() {
-  flexState = 1; //in flex state
-   myservo.attach(servo); //attach servo object. WIll draw current when attached
-   delay(100); //delay 100ms
-   myservo.write(flex);              // tell servo to go to flex position (close hand)
-   delay(1000); //allow servo to travel to position (1000ms)
-   while (flexState == 1){ //loop to check if button has been pressed
-    state = digitalRead(go); //set "state" to state of the latch (0= open; 1= closed)
-    delay(100); //delay
-    delta = abs(digitalRead(go) - state); //check for a change in button state
-    if (delta > 0){ //if a change has occured
-      flexState = 0; //exit flexed state
-      delay(100); //delay
-      extension(); //enter extension function
-
-    }
-    }   
-}
-
-void extension() {
-   delay(100); //delay 100ms
-   myservo.write(extend); //stretch fingers back out
-   delay(1000) ; //allow servo to travel (1000ms) 
-   myservo.detach(); 
-   //detach so motor doesn't draw battery current in extension
-//   doesn't need torque since its not holding anything
-}
-
-
+//The following loop runs forever
 void loop() {
-  state = digitalRead(go); //set "state" to state of the latch (0= open; 1= closed)
-  delay(100); //delay 100ms
-  delta = abs(digitalRead(go) - state);
-  //if button has been pressed (state has changed), close the hand:
-  if (delta > 0){ //if  button is pressed (latch button)
-    flexion(); //call flex function   
+  welcome = 0; //disable welcome screen
+  lcd.setCursor(0,0); //use first row
+  lcd.print("Press button to");  //print travel distance (1-100%)
+  lcd.setCursor(0,1); //use second row
+  lcd.print("Align or Release");  //print travel distance (1-100%)    
+  reading = digitalRead(button);      //Check the state of the button
+  if (reading == HIGH){ //if the button is pressed..
+     CheckHold();                    //Run CheckHold() function
   }
 }
 
 
  
  
-
-
- 
   </code>
 </pre>
 </div>
+
 </span>
 </center>
 </div>
