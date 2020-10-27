@@ -303,9 +303,9 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 <div class ="overflow">
 <div class="container3">
 <div class="float-child" style = "width:70%">
-  <img src="Arm9.png" alt="Manual System" style="width:100%" height = "100%">
+  <img src="8.jpg" alt="Manual System" style="width:70%" height = "70%">
   <div class="container">
-    <p>CMS Manual System</p>
+    <p>Inflatable Brace</p>
   </div>
 </div>
 </div>
@@ -321,21 +321,13 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 <div class ="overflow">
 <div class="container3">
 <div class="float-child" style = "width:70%">
-  <img src="armgif.gif" alt="Biological Models" style="width:100%" height = "100%">
+  <img src="rehabGif.gif" alt="Biological Models" style="width:50%" height = "30%">
   <div class="container">
-    <p>Picking up a Water Bottle</p>
+    <p>Inflation/Deflation Explanation</p>
   </div>
 </div>
 </div>
 
-
-<div class="container3">
-<div class="float-child" style = "width:70%">
-  <img src="armgif2.gif" alt="Biological Models" style="width:100%" height = "100%">
-  <div class="container">
-    <p>Finger Functionality</p>
-  </div>
-</div>
 </div></div>
 
 </div>
@@ -344,52 +336,38 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 
 <div class ="overflow">
     <div class="Bodycontainer2"><p>
-<h2>4.0 Solidworks Assembly </h2>
+<h2>4.0 Product Images </h2>
 
 </div>
 
 <div class ="overflow">
 <div class="float-container">
-<div class="float-child" style = "width:35%">
-  <img src="Arm3.png" alt="Biological Models" style="width:100%" height = "250px">
+<div class="float-child">
+  <img src="8.jpg" alt="Biological Models" style = "width:83%" "height:83%">
   <div class="container">
-    <p>Solidworks Assembly Isometric View</p>
+    <p>External User Interface</p>
   </div>
 </div>
 
 
-<div class="float-child" style = "width:35%">
-  <img src="Arm7.png" alt="Biological Models" style="width:100%" height = "250px">
+<div class="float-child">
+  <img src="2.jpg" alt="Biological Models" style="width:70%" height = "70%">
   <div class="container">
-    <p>Solidworks Assembly Back View</p>
+    <p>Internal Wiring</p>
   </div>
 </div>
 
 <div class="container3">
 <div class="float-child" style = "width:70%">
-  <img src="Arm5.png" alt="Biological Models" style="width:90%" height = "80%">
+  <img src="3.jpg" alt="Biological Models" style="width:60%" height = "60%">
   <div class="container">
-    <p>Solidoworks Top & Bottom View</p>
+    <p>Internal Wiring</p>
   </div>
 </div>
 
 
 
-<div class="float-child" style = "width:70%">
-  <img src="Arm6.png" alt="Biological Models" style="width:100%" height = "260px">
-  <div class="container">
-    <p>Solidworks Assembly Side View</p>
-  </div>
-</div>
 
-
-
-<div class="float-child" style = "width:70%">
-  <img src="Arm8.png" alt="Biological Models" style="width:100%" height = "260px">
-  <div class="container">
-    <p>Solidworks Assembly Top View</p>
-  </div>
-</div>
 </div></div>
 
 </div>
@@ -469,9 +447,9 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 #include <LiquidCrystal_I2C.h> //needed w LCD i2C Library 
 
 
-AF_DCMotor pump(1, MOTOR12_64KHZ); // create motor #1, 64KHz pwm for greater inflation power
+AF_DCMotor pump(2, MOTOR12_64KHZ); // create motor #1, 64KHz pwm for greater inflation power
 
-AF_DCMotor vacuum(2, MOTOR12_8KHZ); // create motor #2, 8KHz pwm
+AF_DCMotor vacuum(1, MOTOR12_8KHZ); // create motor #2, 8KHz pwm
 
  
 LiquidCrystal_I2C lcd(0x27, 16, 2); 
@@ -482,7 +460,8 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 void setup() {
   Serial.begin(9600); //begin serial communication (9600 for LCD)
   lcd.begin();//Initializing display
-  lcd.backlight();//To Power ON the back light NOTE: if backlight doesn't turn on, ensure power jumper is attached
+  lcd.backlight();
+  //To Power ON the back light NOTE: if backlight doesn't turn on, ensure power jumper is attached
   lcd.setCursor(0,0); //use first row
   lcd.print("    WELCOME     ");  //print mode
   pump.setSpeed(255);  // Set motor 1 to maximum speed
@@ -492,24 +471,25 @@ void setup() {
 
 //The following loop runs forever
 void loop() {
-  lcd.clear(); //
+  lcd.clear();
+  vacuum.run(FORWARD); //release the solenoid valve
   lcd.setCursor(0,0); //use first row
   lcd.print("    INFLATING     ");  ////print state of device (inflating)
   pump.run(FORWARD);      // turn on pump
-  delay(5000); //run for 5000ms
+  delay(8000); //run for 8000ms
   pump.run(RELEASE); //detach the motor to conserve power
   lcd.clear(); //clear the screen
   lcd.setCursor(0,0); //use first row
   lcd.print("     HOLDING     ");  //print state of device (pausing on inflation)
-  delay(5000); //delay 5000ms
+  delay(2000); //delay 2000ms
   lcd.clear(); //clear the screen
   lcd.setCursor(0,0); //use first row
   lcd.print("    DEFLATING     ");  //print state of device (deflating)
-  vacuum.run(BACKWARD);      
-  //reverse polarity on solenoid valve (since it is normally closed, ground will keep it closed)
+  vacuum.run(BACKWARD);      //reverse polarity on solenoid valve 
+  //(since it is normally closed, ground will keep it closed)
   delay(1000); //allow 1s to release pressure
-  vacuum.run(RELEASE); //release the solenoid valve
-  delay(500); //delay .5 seconds
+  vacuum.run(FORWARD); //release the solenoid valve
+  delay(500); //delay .5 second
 
 }
 
