@@ -442,6 +442,8 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 <p>
 <pre>
   <code>
+
+
 #include <AFMotor.h> //needed to drive motor
 #include <Wire.h> //needed for circuits
 #include <LiquidCrystal_I2C.h> //needed w LCD i2C Library 
@@ -452,16 +454,17 @@ AF_DCMotor pump(2, MOTOR12_64KHZ); // create motor #1, 64KHz pwm for greater inf
 AF_DCMotor vacuum(1, MOTOR12_8KHZ); // create motor #2, 8KHz pwm
 
  
-LiquidCrystal_I2C lcd(0x27, 16, 2); 
-//LCDvariablename(address [use find_lcd_screen_address program to locate], 16x2 characters)
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+ //LCDvariablename(address [use find_lcd_screen_address program to locate], 16x2 characters)
+
 
 
 
 void setup() {
   Serial.begin(9600); //begin serial communication (9600 for LCD)
   lcd.begin();//Initializing display
-  lcd.backlight();
-  //To Power ON the back light NOTE: if backlight doesn't turn on, ensure power jumper is attached
+  lcd.backlight();//To Power ON the back light NOTE: if backlight doesn't turn on,
+//  ensure power jumper is attached
   lcd.setCursor(0,0); //use first row
   lcd.print("    WELCOME     ");  //print mode
   pump.setSpeed(255);  // Set motor 1 to maximum speed
@@ -476,17 +479,17 @@ void loop() {
   lcd.setCursor(0,0); //use first row
   lcd.print("    INFLATING     ");  ////print state of device (inflating)
   pump.run(FORWARD);      // turn on pump
-  delay(8000); //run for 8000ms
+  delay(8000); //run for 5000ms
   pump.run(RELEASE); //detach the motor to conserve power
   lcd.clear(); //clear the screen
   lcd.setCursor(0,0); //use first row
   lcd.print("     HOLDING     ");  //print state of device (pausing on inflation)
-  delay(2000); //delay 2000ms
+  delay(2000); //delay 5000ms
   lcd.clear(); //clear the screen
   lcd.setCursor(0,0); //use first row
   lcd.print("    DEFLATING     ");  //print state of device (deflating)
-  vacuum.run(BACKWARD);      //reverse polarity on solenoid valve 
-  //(since it is normally closed, ground will keep it closed)
+  vacuum.run(BACKWARD);      //reverse polarity on solenoid valve (since it is normally closed, 
+  //ground will keep it closed)
   delay(1000); //allow 1s to release pressure
   vacuum.run(FORWARD); //release the solenoid valve
   delay(500); //delay .5 second
