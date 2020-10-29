@@ -98,6 +98,7 @@ padding: 0;
 }
 div.container {
   padding: 5px;
+    word-wrap: break-word;
 }
 
 img {
@@ -254,6 +255,12 @@ pre code {
   width: 70%;
 
 }
+
+div.wrapIt {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
 </style>
 </head>
 <body><html>
@@ -364,10 +371,10 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 <div class="float-container">
 <div class="container3">
 <div class="float-child" style = "width:70%">
-  <img src="DipDiagram.png" alt="Biological Models" style="width:100%" height = "70%">
-  <div class="container">
+  <img src="LCD_to_Shield.png" alt="Biological Models" style="width:100%" height = "70%">
+  <div class="container" style = "width:100%">
   <div class = "overflow">
-    <p>Circuit Diagram I</p>
+    <p>LCD Screen to Board</p>
   </div>
   </div>
 </div>
@@ -375,14 +382,43 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 
 <div class="container3">
 <div class="float-child" style = "width:70%">
-  <img src="DipDiagram.png" alt="Biological Models" style="width:100%" height = "70%">
-  <div class="container">
+  <img src="DipStation2.png" alt="Biological Models" style="width:100%" height = "70%">
+  <div class="container" style = "width:100%">
   <div class = "overflow">
-    <p>Circuit Diagram II</p>
+    <p>Circuit Diagram II<br>10K Pot 1 output [Time] --> A1 <br>10K Pot 2 output [Distance] --> A2</p>
   </div>
   </div>
 </div>
 </div>
+
+
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="button.png" alt="Biological Models" style="width:60%" height = "70%">
+  <div class="container" style = "width:100%">
+  <div class = "overflow">
+    <p>"Start" Button to Board</p><br> <br>+5V powers the red LED on the button [purely aesthetic]<br>GND grounds the LED on the button <br> GND--> "NC": "NC" stands for normally closed, so when the button is not <br>pressed, ground will be connected<br>
+ +5V--> "NO": "NO" stands for normally open, so when the button is <br>pressed, +5V will be connected<br>to A0, signaling the Arduino <br> to initiate motor travel.
+  </div>
+  </div>
+</div>
+</div>
+
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="resetbutton.png" alt="Biological Models" style="width:60%" height = "70%">
+  <div class="container" style = "width:100%">
+  <div class = "overflow">
+
+    <p>"Reset" Button to Board</p><br>+5V powers the red LED on the button [purely aesthetic]<br>GND grounds the LED on the button <br> GND--> "NO": "NO" stands for normally open, so when the button is not <br>pressed, ground will be disconnected. <br>When the button is pressed, ground will connect to <br> "reset" on the board through the "NO" pin. <br>When ground is connected to reset on an Arduino, the Arduino will reset.
+  </div>
+  </div>
+</div>
+</div>
+
+
+
+
 </div>
 
 </div>
@@ -484,7 +520,7 @@ void loop() // run over and over
 {
   
   while (!digitalRead(button))  { //while button NOT pressed (because it is "normally open" button)
-  Pot1 = 1023-analogRead(A3); //// IW finding time from pot 1
+  Pot1 = 1023-analogRead(A1); //// IW finding time from pot 1
   int val = 180*(float(Pot1)/1023);// IW finding time
   Time = (val-(val%5)+5); // IW finding time
   Pot2 = 1023-analogRead(A2);// IW finding dist
@@ -497,9 +533,6 @@ void loop() // run over and over
   LCD.print(" minutes"); 
   LCD.setCursor(0,1); //1st column second row
   LCD.print("Dist: ");
-  //if (Dist<10.5)  {
-    //LCD.print(0);
-  //}
   LCD.print(Dist,1);
   LCD.print(" cm");
    
