@@ -350,59 +350,6 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 
 
 
-<div class ="overflow">
-    <div class="Bodycontainer2"><p>
-<h2>4.0 Components </h2>
-
-</div>
-
-<div class ="overflow">
-<div class="float-container">
-<div class="float-child" style = "width:35%">
-  <img src="Jars.png" alt="Biological Models" style="width:100%" height = "250px">
-  <div class="container">
-    <p>Panes of glass are slowly lifted from DCS (a viscous liquid) to get an even coating of the solution.</p>
-  </div>
-</div>
-
-
-<div class="float-child" style = "width:35%">
-  <img src="Arm7.png" alt="Biological Models" style="width:100%" height = "250px">
-  <div class="container">
-    <p>Solidworks Assembly Back View</p>
-  </div>
-</div>
-
-<div class="container3">
-<div class="float-child" style = "width:70%">
-  <img src="Arm5.png" alt="Biological Models" style="width:90%" height = "80%">
-  <div class="container">
-    <p>Solidoworks Top & Bottom View</p>
-  </div>
-</div>
-
-
-
-<div class="float-child" style = "width:70%">
-  <img src="Arm6.png" alt="Biological Models" style="width:100%" height = "260px">
-  <div class="container">
-    <p>Solidworks Assembly Side View</p>
-  </div>
-</div>
-
-
-
-<div class="float-child" style = "width:70%">
-  <img src="Arm8.png" alt="Biological Models" style="width:100%" height = "260px">
-  <div class="container">
-    <p>Solidworks Assembly Top View</p>
-  </div>
-</div>
-</div></div>
-
-</div>
-<p>
-
 
 
 <div class ="overflow">
@@ -417,14 +364,28 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 <div class="float-container">
 <div class="container3">
 <div class="float-child" style = "width:70%">
-  <img src="rehabiliballSchematic.png" alt="Biological Models" style="width:100%" height = "70%">
+  <img src="DipDiagram.png" alt="Biological Models" style="width:100%" height = "70%">
   <div class="container">
   <div class = "overflow">
-    <p>Circuit Diagram</p>
+    <p>Circuit Diagram I</p>
   </div>
   </div>
 </div>
-</div></div>
+</div>
+
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="DipDiagram.png" alt="Biological Models" style="width:100%" height = "70%">
+  <div class="container">
+  <div class = "overflow">
+    <p>Circuit Diagram II</p>
+  </div>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
 
 
 </div>
@@ -480,7 +441,8 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 
 LiquidCrystal_I2C LCD(0x3F, 16, 2); //address of LCD Screen (varies) with pixels (width, height)IW
 
-AF_Stepper motor1(254,2);  //200 steps/rev w motor but dowel is larger in diameter so 254, Motor connected to port 1 (m1/M2) or 2 (M3/M4)
+AF_Stepper motor1(254,2);
+ //200 steps/rev w motor but dowel is larger in diameter so 254, Motor connected to port 1 (m1/M2) or 2 (M3/M4)
 void forwardstep() {  
   motor1.onestep(FORWARD, SINGLE);
 }
@@ -497,7 +459,9 @@ int button = A0; //button on analog pin A0 IW
 int Time; //Time variable IW
 int RemTime; // IW Remaining Time
 float Dist; // IW Distance variable
-float mmperstep = 0.0997; //number of mm per step. 200 Steps per rev. SHAFT: (5.08mm*pi)/200 =.079796mm/step //DOWEL: 6.35mm for dowel (go off of dowel)
+float mmperstep = 0.0997; 
+//number of mm per step. 200 Steps per rev. SHAFT: (5.08mm*pi)/200 =.079796mm/step 
+//DOWEL: 6.35mm for dowel (go off of dowel)
 float Speed; //dist/time iw
 float Dist2;
 float mmperRev = 70; //mm per 1 rev in LINEAR MOTION W SLACK. does not align w circumference. trial & error
@@ -547,11 +511,6 @@ void loop() // run over and over
   LCD.setCursor(0,0); 
   LCD.print("Total Time:");
   
-  //int Steps = ceil((10*Dist)/mmperstep); //total num steps rounded to int times 2 for interleave
-  //long StepTime = (long(Time)*60*1000)/long(Steps); //time per step (ms)--> not fully accurate because not stepping the entire time. actual: .04166steps/ms or 24ms/step
-  //long totalTime = (long(Time)*60*1000); //total time (ms)
-  //long delta = totalTime - (StepTime*Steps); //difference in totalTime vs. time for total steps
-  //long delayTime = delta/Steps; //time per delay for each step
   long T = millis();
   float numRevs = Dist2/mmperRev;
   int numSteps = ceil(numRevs*254);
@@ -568,23 +527,7 @@ void loop() // run over and over
 
   
 } while (RemTime > 0);
-  
-  //for (int i = 0; i<(ceil(Steps)); i++)  {
-    //while ((millis()-T)<(i*StepTime));
-    //motor.onestep(FORWARD,SINGLE); //dont do interleave
-    //RemTime = Time-((millis()-T)/60000);
-    //if (RemTime<10)  {
-      //LCD.print("00");
-    //}
-    //else if (RemTime<100)  {
-      //LCD.print(0);
-    //}
-    //LCD.setCursor(0,1);
-    //LCD.print(RemTime);
-    //LCD.print(" min");
-    //delay(StepTime*2.36); //time to delay Between steps to get correct distance (trial & error)--> as max dist goes up delay goes down
-    
-  
+
   
   motor.disableOutputs();
   LCD.clear();
