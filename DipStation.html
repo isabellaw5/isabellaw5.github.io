@@ -33,12 +33,12 @@
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: #333;
-  color: 	#DC143C;
+  color: 	#4AB0F8;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: 	#DC143C;
+  background-color: 	#4AB0F8;
   color: white;
 }
 
@@ -67,7 +67,7 @@ padding: 0;
  
   /* Position and center the image to scale nicely on all screens */
   height: 75%;
-  background-image: url("RehabBanner.png");
+  background-image: url("dipHero.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -344,13 +344,6 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 </div>
 
 
-<div class="container3">
-<div class="float-child" style = "width:70%">
-  <img src="armgif2.gif" alt="Biological Models" style="width:100%" height = "100%">
-  <div class="container">
-    <p>Finger Functionality</p>
-  </div>
-</div>
 </div></div>
 
 </div>
@@ -479,53 +472,130 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 <p>
 <pre>
   <code>
-#include <AFMotor.h> //needed to drive motor
-#include <Wire.h> //needed for circuits
-#include <LiquidCrystal_I2C.h> //needed w LCD i2C Library 
+#include <AFMotor.h> //needed to drive motor IW 18 Dec
+#include <AccelStepper.h>
+#include <Wire.h> //needed w LCD 12C Library IW 18 Dec
+#include <LiquidCrystal_I2C.h> //needed for LCD IW 18 Dec
 
 
-AF_DCMotor pump(1, MOTOR12_64KHZ); // create motor #1, 64KHz pwm for greater inflation power
+LiquidCrystal_I2C LCD(0x3F, 16, 2); //address of LCD Screen (varies) with pixels (width, height)IW
 
-AF_DCMotor vacuum(2, MOTOR12_8KHZ); // create motor #2, 8KHz pwm
+AF_Stepper motor1(254,2);  //200 steps/rev w motor but dowel is larger in diameter so 254, Motor connected to port 1 (m1/M2) or 2 (M3/M4)
+void forwardstep() {  
+  motor1.onestep(FORWARD, SINGLE);
+}
 
+void backwardstep() {  
+  motor1.onestep(BACKWARD, SINGLE);
+}
+
+AccelStepper motor(forwardstep,backwardstep);
+
+int Pot1; //potentiometer 1 IW (Time)
+int Pot2; //potentiometer 2 IW (Distance)
+int button = A0; //button on analog pin A0 IW
+int Time; //Time variable IW
+int RemTime; // IW Remaining Time
+float Dist; // IW Distance variable
+float mmperstep = 0.0997; //number of mm per step. 200 Steps per rev. SHAFT: (5.08mm*pi)/200 =.079796mm/step //DOWEL: 6.35mm for dowel (go off of dowel)
+float Speed; //dist/time iw
+float Dist2;
+float mmperRev = 70; //mm per 1 rev in LINEAR MOTION W SLACK. does not align w circumference. trial & error
+int numRevs;
  
-LiquidCrystal_I2C lcd(0x27, 16, 2); 
-//LCDvariablename(address [use find_lcd_screen_address program to locate], 16x2 characters)
-
-
-
-void setup() {
-  Serial.begin(9600); //begin serial communication (9600 for LCD)
-  lcd.begin();//Initializing display
-  lcd.backlight();//To Power ON the back light NOTE: if backlight doesn't turn on, ensure power jumper is attached
-  lcd.setCursor(0,0); //use first row
-  lcd.print("    WELCOME     ");  //print mode
-  pump.setSpeed(255);  // Set motor 1 to maximum speed
-  vacuum.setSpeed(200);  // Set solenoid valve to maximum speed
-  delay(100); //delay
+void setup()  
+{
+  Serial.begin(9600); // IW begin serial communication (9600 for LCD)
+  pinMode(button,INPUT); // IW initialize button as input
+  LCD.begin();//Initializing display iw
+  //LCD.backlight();//To Power ON the back light iw
+  delay(500); // IW delay 500ms
+  //motor.release(); // IW disconnect motor when not in use
+  LCD.clear();// IW clear screen
+  motor.enableOutputs();
+  delay(500);
+}
+ 
+void loop() // run over and over
+{
+  
+  while (!digitalRead(button))  { //while button NOT pressed (because it is "normally open" button)
+  Pot1 = 1023-analogRead(A3); //// IW finding time from pot 1
+  int val = 180*(float(Pot1)/1023);// IW finding time
+  Time = (val-(val%5)+5); // IW finding time
+  Pot2 = 1023-analogRead(A2);// IW finding dist
+  Dist = (Pot2*0.01*4.30)*1.279; // IW finding dist (1000 * X )
+  Dist2 = Dist*10; //Dist in mm
+  LCD.clear(); //clear screen 
+  LCD.setCursor(0,0); //1st row 1st column
+  LCD.print("Time: ");
+  LCD.print(Time);
+  LCD.print(" minutes"); 
+  LCD.setCursor(0,1); //1st column second row
+  LCD.print("Dist: ");
+  //if (Dist<10.5)  {
+    //LCD.print(0);
+  //}
+  LCD.print(Dist,1);
+  LCD.print(" cm");
+   
+  delay(100);
   }
+  LCD.clear();
+  delay(500);
+  while (digitalRead(button)); //after button has been pressed
+  LCD.setCursor(0,0); 
+  LCD.print("Total Time:");
+  
+  //int Steps = ceil((10*Dist)/mmperstep); //total num steps rounded to int times 2 for interleave
+  //long StepTime = (long(Time)*60*1000)/long(Steps); //time per step (ms)--> not fully accurate because not stepping the entire time. actual: .04166steps/ms or 24ms/step
+  //long totalTime = (long(Time)*60*1000); //total time (ms)
+  //long delta = totalTime - (StepTime*Steps); //difference in totalTime vs. time for total steps
+  //long delayTime = delta/Steps; //time per delay for each step
+  long T = millis();
+  float numRevs = Dist2/mmperRev;
+  int numSteps = ceil(numRevs*254);
+  float RPM = numRevs/Time;
+  motor.setSpeed(RPM); 
+  do {
+  RemTime = Time-((millis()-T)/60000);
+  LCD.setCursor(0,1);
+  LCD.print(RemTime);
+  LCD.print(" min");
+  motor.setSpeed(RPM);
+  
+  motor.runSpeed();
 
-//The following loop runs forever
-void loop() {
-  lcd.clear(); //
-  lcd.setCursor(0,0); //use first row
-  lcd.print("    INFLATING     ");  ////print state of device (inflating)
-  pump.run(FORWARD);      // turn on pump
-  delay(5000); //run for 5000ms
-  pump.run(RELEASE); //detach the motor to conserve power
-  lcd.clear(); //clear the screen
-  lcd.setCursor(0,0); //use first row
-  lcd.print("     HOLDING     ");  //print state of device (pausing on inflation)
-  delay(5000); //delay 5000ms
-  lcd.clear(); //clear the screen
-  lcd.setCursor(0,0); //use first row
-  lcd.print("    DEFLATING     ");  //print state of device (deflating)
-  vacuum.run(BACKWARD);      
-  //reverse polarity on solenoid valve (since it is normally closed, ground will keep it closed)
-  delay(1000); //allow 1s to release pressure
-  vacuum.run(RELEASE); //release the solenoid valve
-  delay(500); //delay .5 seconds
-
+  
+} while (RemTime > 0);
+  
+  //for (int i = 0; i<(ceil(Steps)); i++)  {
+    //while ((millis()-T)<(i*StepTime));
+    //motor.onestep(FORWARD,SINGLE); //dont do interleave
+    //RemTime = Time-((millis()-T)/60000);
+    //if (RemTime<10)  {
+      //LCD.print("00");
+    //}
+    //else if (RemTime<100)  {
+      //LCD.print(0);
+    //}
+    //LCD.setCursor(0,1);
+    //LCD.print(RemTime);
+    //LCD.print(" min");
+    //delay(StepTime*2.36); //time to delay Between steps to get correct distance (trial & error)--> as max dist goes up delay goes down
+    
+  
+  
+  motor.disableOutputs();
+  LCD.clear();
+  delay(500);
+  LCD.setCursor(0,0);
+  LCD.print("Complete!");
+  LCD.clear();
+  LCD.setCursor(0,1);
+  LCD.print("Please Reset");
+  //while (true);
+  
 }
 
 
