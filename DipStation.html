@@ -474,111 +474,109 @@ The circuit consists of an Arduino Uno with a motor drive shield stacked on top.
 <p>
 <pre>
   <code>
-#include <AFMotor.h> //needed to drive motor IW 18 Dec
-#include <AccelStepper.h>
-#include <Wire.h> //needed w LCD 12C Library IW 18 Dec
-#include <LiquidCrystal_I2C.h> //needed for LCD IW 18 Dec
+
+#include <AFMotor.h> //needed to drive motor
+#include <AccelStepper.h> //acceleration library is smoothest
+#include <Wire.h> //needed for circuits
+#include <LiquidCrystal_I2C.h> //needed w LCD 12C Library 
 
 
-LiquidCrystal_I2C LCD(0x3F, 16, 2); //address of LCD Screen (varies) with pixels (width, height)IW
+LiquidCrystal_I2C LCD(0x27, 16, 2); //usual address of LCD Screen with pixels (width, height)IW
 
-AF_Stepper motor1(254,2);
- //200 steps/rev w motor but dowel is larger in diameter so 254, Motor connected to port 1 (m1/M2) or 2 (M3/M4)
-void forwardstep() {  
+AF_Stepper motor1(200,2);  //200 steps/rev w motor; Motor connected to port 2 (M3/M4)
+void forwardstep() {  //wrapping the AFmotor lib for use with accel stepper for forward motion
   motor1.onestep(FORWARD, SINGLE);
 }
 
-void backwardstep() {  
+void backwardstep() {   //wrapping the AFmotor lib for use with accel stepper for backward motion
   motor1.onestep(BACKWARD, SINGLE);
 }
 
-AccelStepper motor(forwardstep,backwardstep);
+AccelStepper motor(forwardstep,backwardstep); //initializing motor as object in accel stepper
 
-int Pot1; //potentiometer 1 IW (Time)
-int Pot2; //potentiometer 2 IW (Distance)
-int button = A0; //button on analog pin A0 IW
-int Time; //Time variable IW
-int RemTime; // IW Remaining Time
-float Dist; // IW Distance variable
-float mmperstep = 0.0997; 
-//number of mm per step. 200 Steps per rev. SHAFT: (5.08mm*pi)/200 =.079796mm/step 
-//DOWEL: 6.35mm for dowel (go off of dowel)
-float Speed; //dist/time iw
-float Dist2;
-float mmperRev = 70; //mm per 1 rev in LINEAR MOTION W SLACK. does not align w circumference. trial & error
+int Pot1; //potentiometer 1  (Time: A2 (min))
+int Pot2; //potentiometer 2 (Distance: A3 (mm))
+int button = A0; //button on analog pin A0
+int Time; //Time variable
+int RemTime; // Remaining Time
+float Dist; // Distance variable (mm)
+float mmperRev = 20; //mm in 1 rev of dowel (2*pi*r) r =3.175 (dowel diameter/2)
 int numRevs;
  
 void setup()  
 {
+  LCD.backlight(); //turn on LCD backlight
   Serial.begin(9600); // IW begin serial communication (9600 for LCD)
   pinMode(button,INPUT); // IW initialize button as input
   LCD.begin();//Initializing display iw
-  //LCD.backlight();//To Power ON the back light iw
   delay(500); // IW delay 500ms
-  //motor.release(); // IW disconnect motor when not in use
   LCD.clear();// IW clear screen
-  motor.enableOutputs();
-  delay(500);
+  motor.disableOutputs();//disable motor function
+  delay(500); // delay
 }
  
 void loop() // run over and over
 {
   
   while (!digitalRead(button))  { //while button NOT pressed (because it is "normally open" button)
+  motor.disableOutputs();
   Pot1 = 1023-analogRead(A1); //// IW finding time from pot 1
   int val = 180*(float(Pot1)/1023);// IW finding time
   Time = (val-(val%5)+5); // IW finding time
-  Pot2 = 1023-analogRead(A2);// IW finding dist
-  Dist = (Pot2*0.01*4.30)*1.279; // IW finding dist (1000 * X )
-  Dist2 = Dist*10; //Dist in mm
+  Pot2 = 1023-analogRead(A2);// IW finding dist (A1 on right dip controller/A3 on left dip controller)
+  Dist = Pot2*0.01*16.49; 
+  // the distance values (mm) displayed on the LCD screen. If you want the dip station to go farther, increase the multipliers here. Current range: up to 160cm.
   LCD.clear(); //clear screen 
   LCD.setCursor(0,0); //1st row 1st column
   LCD.print("Time: ");
-  LCD.print(Time);
+  LCD.print(Time); //print time
   LCD.print(" minutes"); 
   LCD.setCursor(0,1); //1st column second row
-  LCD.print("Dist: ");
+  LCD.print("Dist: "); //print distance
+  //if (Dist<10.5)  {
+    //LCD.print(0);
+  //}
   LCD.print(Dist,1);
-  LCD.print(" cm");
+  LCD.print(" mm");
    
   delay(100);
   }
-  LCD.clear();
+  LCD.clear();  
   delay(500);
-  while (digitalRead(button)); //after button has been pressed
+  while (digitalRead(button)); //after button has been pressed (5V goes to A0). 
   LCD.setCursor(0,0); 
-  LCD.print("Total Time:");
-  
+  LCD.print("Remaining Time:"); //print time
   long T = millis();
-  float numRevs = Dist2/mmperRev;
-  int numSteps = ceil(numRevs*254);
-  float RPM = numRevs/Time;
-  motor.setSpeed(RPM); 
-  do {
-  RemTime = Time-((millis()-T)/60000);
+  float numRevs = Dist/mmperRev; //total number of revs (total distance/mm per rev)
+  int numSteps = ceil(numRevs*200); //total number of steps (total revs *200 bc 200 steps/rev)
+  float seconds = Time*60; //minutes to seconds (total time)
+  float velocity = numSteps/seconds; //find velocity (steps per second).
+  motor.setSpeed(velocity);  //set speed of motor to this constant velocity value.
+  motor.enableOutputs();
+  do { //do while loop. loop exits when remaining time reaches 0.
+  RemTime = Time-((millis()-T)/60000); //calculate remaining time.
   LCD.setCursor(0,1);
   LCD.print(RemTime);
-  LCD.print(" min");
-  motor.setSpeed(RPM);
+  LCD.print(" min "); //print remaining time
+  //motor.setSpeed(steps/second);
   
-  motor.runSpeed();
-
+  motor.runSpeed(); //run the motor at the set velocity at the end of each iteration of loop.
   
-} while (RemTime > 0);
-
-  
-  motor.disableOutputs();
+} while (RemTime > 0); //do loop while remaining time is greater than 0.
   LCD.clear();
+  while (RemTime = 0) {
+  motor.disableOutputs();// after loop disable motor to save power
   delay(500);
   LCD.setCursor(0,0);
   LCD.print("Complete!");
   LCD.clear();
   LCD.setCursor(0,1);
   LCD.print("Please Reset");
-
+  delay(5000);
+  //wait for user to hit reset button
+  }
+  
 }
-
-
  
  
 
