@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131424144-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-131424144-1');
+</script>
+<style>
+/* Add a black background color to the top navigation */
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #333;
+  color: #AC336B;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #AC336B;
+  color: white;
+}
+
+
+body, html {
+text-decoration: none;
+    height: 100%;
+	background-color: white;
+	color: black;
+	margin: auto;
+	font-family: "Courier New", Courier, monospace;
+	padding: 0px;
+	margin-top: 0px; 
+	
+}
+
+/* The hero image */
+* {
+margin: 0;
+padding: 0;
+}
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+ 
+  /* Position and center the image to scale nicely on all screens */
+  height: 75%;
+  background-image: url("LightsBanner.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.header {
+  padding:  0px;
+  text-align: center;
+  background: #A6D3F7;
+  color: white;
+  font-size: 30px;
+  font: Open Sans;
+}
+
+.a{
+	font: black;
+}
+div.container {
+  padding: 5px;
+}
+
+img {
+  opacity: 1.0;
+}
+
+
+
+
+.float-container {
+    border: 3px;
+    padding: 50px;
+	font: black;
+
+
+}
+
+div.container3 {
+	margin-left: 10%;
+}
+
+.float-child {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+	width: 35%;
+    float: left;
+	margin-left: 7%;
+    padding: 20px;
+    border: 2px;
+	margin-bottom: 25px;
+	
+}  
+
+div.Bodycontainer {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  text-align: left;
+  background-color: #4AB0F8; /* For browsers that do not support gradients */
+  background-image: linear-gradient(white, #4AB0F8, white); /* Standard syntax (must be last) */
+
+}
+
+
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 250px;
+  font-size: 15px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a blue background color to the cancel button */
+.form-container .cancel {
+  background-color: #4AB0F8;
+  font-size: 15px;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+  z-index: 1;
+}
+div.Bodycontainer2 {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  text-align: left;
+
+}
+
+div.overflow {
+overflow: hidden;
+    white-space: nowrap;
+	}
+
+code { background-color: #eee; }
+
+pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  width: 70%;
+
+}
+
+</style>
+</head>
+<body><html>
+<div class="topnav">
+  <a class="active" href="index">Home</a>
+ 
+<button class="open-button" onclick="openForm()">Contact Me</button>
+
+<div class="form-popup" id="myForm">
+  <form action="" class="form-container">
+   <center> <h1>Contact Me</h1><br><br>
+
+    <center><label for="email"><b>Email:</b></label></center>
+	<input type="text" value="IsabellaElizabethWatson@gmail.com" id="myInput" style="width:85%">
+<button onclick="myFunction()" font= >Copy text</button>
+
+<script>
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+</script>
+    
+	<br><br>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+</center>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+  <a href="https://www.linkedin.com/in/isabella-watson-786b8a130/">LinkedIn</a><img src ="linkedin.png" height = "35px" width = "20px">
+</div>
+<div class="hero-image">
+  <div class="hero-text">
+  </div>
+  </div>
+  
+  <body>
+    <div class="Bodycontainer2"><p>
+	
+<h2>1.0 Background </h2>
+<br>
+The following is a "smart" LED light strip. Each LED is individually addressable, making color and timing control possible with a microcontroller. I used an Arduino Uno to code the following light pattern.
+<br><br>
+<b><h2>2.0 Final Product</h2></b> 
+<br>
+</div>
+<div class ="overflow">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="Arm9.png" alt="Arm" style="width:100%" height = "100%">
+  <div class="container">
+    <p>Complete Robotic Arm</p>
+  </div>
+</div>
+</div>
+</div>
+
+<p><p>
+
+<div class ="overflow">
+    <div class="Bodycontainer2"><p>
+<b><h2>3.0 Videos</h2></b> 
+</div>
+</div>
+<div class ="overflow">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="armgif.gif" alt="Biological Models" style="width:100%" height = "100%">
+  <div class="container">
+    <p>Picking up a Water Bottle</p>
+  </div>
+</div>
+</div>
+
+
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="armgif2.gif" alt="Biological Models" style="width:100%" height = "100%">
+  <div class="container">
+    <p>Finger Functionality</p>
+  </div>
+</div>
+</div></div>
+
+</div>
+
+
+
+<div class ="overflow">
+    <div class="Bodycontainer2"><p>
+<h2>3.0 Solidworks Assembly </h2>
+
+</div>
+
+<div class ="overflow">
+<div class="float-container">
+<div class="float-child" style = "width:35%">
+  <img src="Arm3.png" alt="Biological Models" style="width:100%" height = "250px">
+  <div class="container">
+    <p>Solidworks Assembly Isometric View</p>
+  </div>
+</div>
+
+
+<div class="float-child" style = "width:35%">
+  <img src="Arm7.png" alt="Biological Models" style="width:100%" height = "250px">
+  <div class="container">
+    <p>Solidworks Assembly Back View</p>
+  </div>
+</div>
+
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="Arm5.png" alt="Biological Models" style="width:90%" height = "80%">
+  <div class="container">
+    <p>Solidoworks Top & Bottom View</p>
+  </div>
+</div>
+
+
+
+<div class="float-child" style = "width:70%">
+  <img src="Arm6.png" alt="Biological Models" style="width:100%" height = "260px">
+  <div class="container">
+    <p>Solidworks Assembly Side View</p>
+  </div>
+</div>
+
+
+
+<div class="float-child" style = "width:70%">
+  <img src="Arm8.png" alt="Biological Models" style="width:100%" height = "260px">
+  <div class="container">
+    <p>Solidworks Assembly Top View</p>
+  </div>
+</div>
+</div></div>
+
+</div>
+<p>
+
+
+
+<div class ="overflow">
+    <div class="Bodycontainer2"><p>
+<br>
+<h2>4.0 Circuit Diagram </h2>
+<p>
+
+</div>
+
+<div class ="overflow">
+<div class="float-container">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="armcircuit.png" alt="Biological Models" style="width:100%" height = "70%">
+  <div class="container">
+  <div class = "overflow">
+    <p>The circuit used in conjunction with the Arduino Nano utilizes <br> two switches, a pullup resistor, and a high-torque servo motor.<br> The first switch (Sw1) attaches power (9V [not 5V] battery) <br>to the Arduino and servo motor. <br>The second switch (Sw2) connects A0 (3.3V) to the pull-up resistor,<br> which inputs 3.3V (or a binary "1") to the nano. <br>This signals the Nano to turn the servo motor 180 degrees.<br> All grounds are common.<br><b> NOTE: </b> This is an updated/simplified circuit from the origonal circuit I made (the one seen in the images).</p>
+  </div>
+  </div>
+</div>
+</div></div>
+
+
+</div>
+
+
+<div class ="overflow">
+
+    <div class="Bodycontainer2"><p>
+	<h2>5.0 Assembly</h2>
+<p><br><br>
+
+
+<div class="float-container">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+<b>Materials</b><br><br>
+
+<a href="https://www.amazon.com/Arduino-A000005-ARDUINO-Nano/dp/B0097AU5OU/ref=sr_1_3?dchild=1&keywords=arduino+nano&qid=1603210232&sr=8-3"  style="text-decoration: none;"> REAL Arduino Nano</a><br>
+<br>
+<i>*Always read reviews and ensure you are not buying a<br> cheap knockoff Arduino. <br>Fakes will NOT interface with the Arduino IDE properly</i><br><br>
+<a href="https://www.adafruit.com/product/1461?gclid=CjwKCAiA8ov_BRAoEiwAOZogwSGmkC3VZlGWX-Ltub-Di42RRBWxv748kO2UyfpSg-4SuFyXb0igyxoCj0EQAvD_BwElength=1"  style="text-decoration: none;">Neopixel LED Strip </a><br>
+
+<a href="https://www.amazon.com/AmazonBasics-Everyday-Alkaline-Batteries-8-Pack/dp/B00MH4QM1S/ref=sr_1_1_sspa?crid=5GWJ5VRCZ2IY&dchild=1&keywords=9v+battery&qid=1603210468&sprefix=9v%2Caps%2C314&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExRjZTVlM1VUdDV1VXJmVuY3J5cHRlZElkPUExMDM3ODgwTFBXRUlLTjZURFZIJmVuY3J5cHRlZEFkSWQ9QTA3NDI0NzQzMkQ1WUdFNlBRSkVSJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ=="  style="text-decoration: none;">9V Battery</a><br>
+
+<a href="https://www.amazon.com/HiLetgo-Finished-Prototype-Circuit-Breadboard/dp/B00FXHXT80/ref=sr_1_6?dchild=1&keywords=perf+board&qid=1603210500&sr=8-6"  style="text-decoration: none;">Prototyping Board</a><br>
+
+<a href="https://www.amazon.com/FASTTOBUY-Soldering-Station-194%C2%B0F-896%C2%B0F-Temperature/dp/B082HP4513/ref=sr_1_25?dchild=1&keywords=soldering+iron&qid=1603125905&sr=8-25"  style="text-decoration: none;">Soldering Iron</a><br>
+
+<a href="https://www.amazon.com/Cylewet-Self-Locking-Latching-Button-CYT1091/dp/B075VBV4QH/ref=sr_1_6?dchild=1&keywords=latch+button+electronics&qid=1603210712&sr=8-6"  style="text-decoration: none;">Latch Button (x2)</a><br>
+
+<a href="https://www.amazon.com/TUOFENG-Wire-Solid-different-colored-spools/dp/B07TX6BX47/ref=sr_1_2_sspa?dchild=1&keywords=22+awg+wire&qid=1603125451&s=industrial&sr=1-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFDU0FLSjVWOVdIUkImZW5jcnlwdGVkSWQ9QTA0ODE4ODUyUEZPOUtUQkFaWkhEJmVuY3J5cHRlZEFkSWQ9QTA4ODcwMTAzSUZMNEdCTEtTVkZQJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ=="  style="text-decoration: none;">22 AWG Wire*</a><br><br>*Any type of wire between 20-22AWG work for Arduino.<br> I prefer solid to stranded wire for ease of <br>soldering, but that is personal preference.
+
+
+</div></div></div>
+
+
+</div></div>
+
+
+<div class ="overflow">
+
+    <div class="Bodycontainer2"><p>
+	<h2>6.0 Code </h2>
+<p>
+<pre>
+  <code>
+#include <Servo.h>
+
+Servo myservo;  // create servo object to control a servo
+
+int flex = 0;    // flex position (0 degrees)
+int extend = 180;   //extended position (180 degrees)
+int servo = 9; //Servo on D11 (PWM pin)
+int power = A0; //set A0 as 3.3V output
+int go = A5; //A5 as input (goes from 0 to 1)
+int state = 0; //state of activation (flexed vs. extended)
+int delta = 0; //see if state has changed
+int flexState = 0; //state variable to control if flexed or not
+
+
+void setup() {
+  myservo.attach(servo);  // attaches the servo on pin 11 to the servo object
+  pinMode(servo, OUTPUT);    // sets servo pin as output
+  pinMode(power, OUTPUT);    // sets A0 as output
+  pinMode(go, INPUT);    // Sets A5 as discrete input
+  digitalWrite(power, HIGH); //write power pin to high always
+  myservo.write(extend); //ensure arm begins in extension
+  myservo.detach(); //detach while not in flexion saves battery power
+}
+
+void flexion() {
+  flexState = 1; //in flex state
+   myservo.attach(servo); //attach servo object. WIll draw current when attached
+   delay(100); //delay 100ms
+   myservo.write(flex);              // tell servo to go to flex position (close hand)
+   delay(1000); //allow servo to travel to position (1000ms)
+   while (flexState == 1){ //loop to check if button has been pressed
+    state = digitalRead(go); //set "state" to state of the latch (0= open; 1= closed)
+    delay(100); //delay
+    delta = abs(digitalRead(go) - state); //check for a change in button state
+    if (delta > 0){ //if a change has occured
+      flexState = 0; //exit flexed state
+      delay(100); //delay
+      extension(); //enter extension function
+
+    }
+    }   
+}
+
+void extension() {
+   delay(100); //delay 100ms
+   myservo.write(extend); //stretch fingers back out
+   delay(1000) ; //allow servo to travel (1000ms) 
+   myservo.detach(); 
+   //detach so motor doesn't draw battery current in extension
+//   doesn't need torque since its not holding anything
+}
+
+
+void loop() {
+  state = digitalRead(go); //set "state" to state of the latch (0= open; 1= closed)
+  delay(100); //delay 100ms
+  delta = abs(digitalRead(go) - state);
+  //if button has been pressed (state has changed), close the hand:
+  if (delta > 0){ //if  button is pressed (latch button)
+    flexion(); //call flex function   
+  }
+}
+
+
+ 
+ 
+
+
+ 
+  </code>
+</pre>
+</div>
+</span>
+</center>
+</div>
+</p>
+</html>
+</body>
