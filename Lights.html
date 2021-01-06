@@ -380,81 +380,97 @@ The following is a "smart" LED light strip. Each LED is individually addressable
 <p>
 <pre>
   <code>
-// NeoPixel test program showing use of the WHITE channel for RGBW
-// pixels only (won't look correct on regular RGB NeoPixel strips).
 
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
 
 
 // Which pin on the Arduino is connected to the NeoPixels?
-// On a Trinket or Gemma we suggest changing this to 1:
-#define LED_PIN     6
+#define LED_PIN     6 //Connect D6 on Arduino Uno to NeoPixel input (white wire)
 
 // How many NeoPixels are attached to the Arduino?
 #define LED_COUNT  30
 
-#define potPin A0
+#define BRIGHTNESS 255 // NeoPixel brightness, 0 (min) to 255 (max)
 
-// NeoPixel brightness, 0 (min) to 255 (max)
-// Set BRIGHTNESS to about 1/5 (max = 255)
 
-#define FSR A1
 
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 // Declare our NeoPixel strip object:
 
+
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 // Argument 1 = Number of pixels in NeoPixel strip
 // Argument 2 = Arduino pin number (most are valid)
 // Argument 3 = Pixel type flags, add together as needed:
 //   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 
-uint32_t rgbcolor1;
-long hue1 = 0;
-int initial = 0;
-long lightness = 0;
-long saturation = 0;
-int BRIGHTNESS = 255;
+uint32_t rgbcolor1; //variable for color of NeoPixel
+long hue1 = 0; //randomized hue variable for HSV (Hue, Saturation, Value)
+
+long saturation = 0; //initialize saturation for HSV (Hue, Saturation, Value)
+//Saturation determines the intensity or purity of the color…this is an 
+//8-bit number ranging from 0 (no saturation, just grayscale) 
+//to 255 (maximum saturation, pure hue). In the middle,
+//you’ll start to get sort of pastel tones.
+
+
+long value= 0; //Value determines the brightness of a color…
+//it’s also an 8-bit number ranging from 0 (black, regardless of hue or saturation) 
+//to 255 (maximum brightness).
+
+long maxValue = 35900; //max hue value for HSV
+//red (0) --> Violet (35900) in ROYGBIV order
+
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(9600); //begin serial communication with strip at 9600 Baude Rate
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
-  strip.clear();
-  strip.setBrightness(BRIGHTNESS);
-  hue1 = random(0, 35900);
-  lightness = 100;
-  saturation = 200;
-  rgbcolor1 = strip.gamma32(strip.ColorHSV(hue1, saturation, lightness));
-  strip.fill(rgbcolor1, 0, 29);
-  strip.show();
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(potPin, INPUT_PULLUP);
-  pinMode(FSR, INPUT_PULLUP);
-  initial = 1;
+  strip.clear(); //clear the strip
+  strip.setBrightness(BRIGHTNESS); //set brightness
+  hue1 = random(0, maxValue); //
+  value = 255; //set desired brightness (0-->255)
+  saturation = 150; //set desired saturation (0--> 255), 150 will be pastel tones
+  
+  rgbcolor1 = strip.gamma32(strip.ColorHSV(hue1, saturation, lightness)); 
+  //Strip.ColorHSV will utilize HSV color library
+  //strip.gamma32 will help crispen the HSV colors. 
+  //without strip.gamma32 your HSV colors may be washed out
+  
+  strip.fill(rgbcolor1, 0, 29); //fill the strip with the rgb color
+  //from 0 (first pixel) to 29 (last pixel)
+  strip.show(); //show the color
+  pinMode(LED_PIN, OUTPUT); //define D6 as an output pin
 
 }
 
 void loop() {
-  hue1 = random(0, 35900);
-  lightness = 100;
-  saturation = 200;
+  hue1 = random(0, maxValue); //generate random hue
+  value = 255; //set desired brightness (0-->255)
+  saturation = 150; //set desired saturation (0--> 255), 150 will be pastel tones
+  
   rgbcolor1 = strip.gamma32(strip.ColorHSV(hue1, saturation, lightness));
-  for (int i = 0; i <= 15; i++) {
+    //Strip.ColorHSV will utilize HSV color library
+  //strip.gamma32 will help crispen the HSV colors. 
+  //without strip.gamma32 your HSV colors may be washed out
+
+
+  //Loop that starts at middle of strip (LED #15)
+  //and expands outward towards each edge of the strip
+  //one LED at a time
+  for (int i = 0; i <= 15; i++) { 
     strip.fill(rgbcolor1, 15 - i, 1);
     strip.fill(rgbcolor1, 15 + i, 1);
-    delay(100);
+    //short delay so each LED illuminates individually
+    delay(100); 
+    //show your pretty colors!
     strip.show();
   }
 
 
 
 }
-
  
  
 
