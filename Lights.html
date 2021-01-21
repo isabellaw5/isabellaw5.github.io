@@ -305,6 +305,16 @@ The following is a "smart" LED light strip. Each LED is individually addressable
   </div>
 </div>
 </div>
+
+<br>
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="lighties.jpg" style = "width: 50%">
+  <div class="container">
+    <p>Final Setup</p>
+  </div>
+</div>
+</div>
 </div>
 
 <p><p>
@@ -377,12 +387,18 @@ The following is a "smart" LED light strip. Each LED is individually addressable
 
     <div class="Bodycontainer2"><p>
 	<h2>5.0 Code </h2>
-<p>
+
+
+<div class="float-container">
+<div class="container3">
 <pre>
   <code>
 
-#include Adafruit_NeoPixel.h
-#include Wire.h
+// NeoPixel test program showing use of the WHITE channel for RGBW
+// pixels only (won't look correct on regular RGB NeoPixel strips).
+
+#include <Adafruit_NeoPixel.h>
+#include <Wire.h>
 
 
 // Which pin on the Arduino is connected to the NeoPixels?
@@ -408,21 +424,22 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 
 uint32_t rgbcolor1; //variable for color of NeoPixel
-long hue1 = 0; //randomized hue variable for HSV (Hue, Saturation, Value)
-
-long saturation = 0; //initialize saturation for HSV (Hue, Saturation, Value)
+uint32_t rgbcolor2; //variable for color of NeoPixel
+  uint32_t hue1 = 0; //randomized hue variable for HSV (Hue, Saturation, Value)
+  uint32_t hue2 = 0; //randomized hue variable for HSV (Hue, Saturation, Value)
+  uint8_t saturation = 0; //initialize saturation for HSV (Hue, Saturation, Value)
 //Saturation determines the intensity or purity of the color…this is an 
 //8-bit number ranging from 0 (no saturation, just grayscale) 
 //to 255 (maximum saturation, pure hue). In the middle,
 //you’ll start to get sort of pastel tones.
 
 
-long value= 0; //Value determines the brightness of a color…
+  uint8_t value= 0; //Value determines the brightness of a color…
 //it’s also an 8-bit number ranging from 0 (black, regardless of hue or saturation) 
 //to 255 (maximum brightness).
 
-long maxValue = 35900; //max hue value for HSV
-//red (0) --> Violet (35900) in ROYGBIV order
+long maxValue = 65535; //max hue value for HSV
+//red (0) --> Violet (65535) in ROYGBIV order
 
 void setup() {
   Serial.begin(9600); //begin serial communication with strip at 9600 Baude Rate
@@ -433,7 +450,7 @@ void setup() {
   value = 255; //set desired brightness (0-->255)
   saturation = 150; //set desired saturation (0--> 255), 150 will be pastel tones
   
-  rgbcolor1 = strip.gamma32(strip.ColorHSV(hue1, saturation, lightness)); 
+  rgbcolor1 = strip.gamma32(strip.ColorHSV(hue1, saturation, value)); 
   //Strip.ColorHSV will utilize HSV color library
   //strip.gamma32 will help crispen the HSV colors. 
   //without strip.gamma32 your HSV colors may be washed out
@@ -446,11 +463,11 @@ void setup() {
 }
 
 void loop() {
-  hue1 = random(0, maxValue); //generate random hue
+  hue1 = random(maxValue/2, maxValue); //generate random hue
   value = 255; //set desired brightness (0-->255)
-  saturation = 150; //set desired saturation (0--> 255), 150 will be pastel tones
+  saturation = random(150,255); //set desired saturation (0--> 255), 150 will be pastel tones
   
-  rgbcolor1 = strip.gamma32(strip.ColorHSV(hue1, saturation, lightness));
+  rgbcolor1 = strip.gamma32(strip.ColorHSV(hue1, saturation, value));
     //Strip.ColorHSV will utilize HSV color library
   //strip.gamma32 will help crispen the HSV colors. 
   //without strip.gamma32 your HSV colors may be washed out
@@ -467,6 +484,27 @@ void loop() {
     //show your pretty colors!
     strip.show();
   }
+    hue2 = random(0, maxValue/2); //generate random hue
+  value = 255; //set desired brightness (0-->255)
+  saturation = random(100,255); //set desired saturation (0--> 255), 150 will be pastel tones
+  
+  rgbcolor2 = strip.gamma32(strip.ColorHSV(hue2, saturation, value));
+    //Strip.ColorHSV will utilize HSV color library
+  //strip.gamma32 will help crispen the HSV colors. 
+  //without strip.gamma32 your HSV colors may be washed out
+
+
+  //Loop that starts at ends of strip (LED #15)
+  //and travels inward towards strip center
+  //one LED at a time
+  for (int i = 15; i >= 0; i--) { 
+    strip.fill(rgbcolor2, 15 - i, 1);
+    strip.fill(rgbcolor2, 15 + i, 1);
+    //short delay so each LED illuminates individually
+    delay(100); 
+    //show your pretty colors!
+    strip.show();
+  }
 
 
 
@@ -478,6 +516,7 @@ void loop() {
  
   </code>
 </pre>
+</div>
 </div>
 </span>
 </center>
