@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131424144-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-131424144-1');
+</script>
+<style>
+/* Add a black background color to the top navigation */
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #333;
+  color: 	#F5A3EB;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: 	#F5A3EB;
+  color: white;
+}
+
+
+body, html {
+text-decoration: none;
+    height: 100%;
+	background-color: white;
+	color: black;
+	margin: auto;
+	font-family: "Courier New", Courier, monospace;
+	padding: 0px;
+	margin-top: 0px; 
+	
+}
+
+
+
+/* The hero image */
+* {
+margin: 0;
+padding: 0;
+}
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+ 
+  /* Position and center the image to scale nicely on all screens */
+  height: 75%;
+  background-image: url("HorseBanner.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.header {
+  padding:  0px;
+  text-align: center;
+  background: #A6D3F7;
+  color: white;
+  font-size: 30px;
+  font: Open Sans;
+}
+
+.a{
+	font: black;
+}
+div.container {
+  padding: 5px;
+}
+
+img {
+  opacity: 1.0;
+}
+
+
+
+
+.float-container {
+    border: 3px;
+    padding: 50px;
+	font: black;
+
+
+}
+
+div.container3 {
+	margin-left: 10%;
+}
+
+.float-child {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+	width: 35%;
+    float: left;
+	margin-left: 7%;
+    padding: 20px;
+    border: 2px;
+	margin-bottom: 25px;
+	
+}  
+
+div.Bodycontainer {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  text-align: left;
+  background-color: #4AB0F8; /* For browsers that do not support gradients */
+  background-image: linear-gradient(white, #4AB0F8, white); /* Standard syntax (must be last) */
+
+}
+
+
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 250px;
+  font-size: 15px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a blue background color to the cancel button */
+.form-container .cancel {
+  background-color: #4AB0F8;
+  font-size: 15px;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+  z-index: 1;
+}
+div.Bodycontainer2 {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  text-align: left;
+
+}
+
+div.overflow {
+overflow: hidden;
+    white-space: nowrap;
+	}
+
+
+code {
+  font-family: monospace;
+  margin: auto;
+  background-color: #eee;
+}
+pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  width: 70%;
+
+}
+
+</style>
+</head>
+<body><html>
+<div class="topnav">
+  <a class="active" href="index">Home</a>
+ 
+<button class="open-button" onclick="openForm()">Contact Me</button>
+
+<div class="form-popup" id="myForm">
+  <form action="" class="form-container">
+   <center> <h1>Contact Me</h1><br><br>
+
+    <center><label for="email"><b>Email:</b></label></center>
+	<input type="text" value="IsabellaElizabethWatson@gmail.com" id="myInput" style="width:85%">
+<button onclick="myFunction()" font= >Copy text</button>
+
+<script>
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+</script>
+    
+	<br><br>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+</center>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+  <a href="https://www.linkedin.com/in/isabella-watson-786b8a130/">LinkedIn</a><img src ="linkedin.png" height = "35px" width = "20px">
+</div>
+<div class="hero-image">
+  <div class="hero-text">
+  </div>
+  </div>
+  
+  <body>
+    <div class="Bodycontainer2"><p>
+	
+<h2>1.0 Background </h2>
+<br>
+The <i>Rotating Horse Hat</i> is a wearable device I made for opening day at the Del Mar Horse Races! The horse is mounted on a platform thats secured to a 6V DC motor to allow rotation.
+
+<br><br>
+<b><h2>2.0 Final Product</h2></b> 
+<br>
+</div>
+<div class ="overflow">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="HorseGif.gif" alt="Horse Hat" style="width:70%" height = "70%">
+  <div class="container">
+    <p>Rotating Horse Hat</p>
+  </div>
+</div>
+</div>
+</div>
+
+<p><p>
+
+<div class ="overflow">
+    <div class="Bodycontainer2"><p>
+<b><h2>3.0 Pictures</h2></b> 
+</div>
+</div>
+<div class ="overflow">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="HorseHat.png" alt="Horse Hat" style="width:50%" height = "30%">
+  <div class="container">
+    <p>Rotating Horse Hat</p>
+  </div>
+</div>
+</div>
+
+</div></div>
+
+</div>
+
+
+
+
+<div class ="overflow">
+    <div class="Bodycontainer2"><p>
+<br>
+<h2>4.0 Circuit Diagram </h2>
+<p>
+
+</div>
+
+<div class ="overflow">
+<div class="float-container">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+  <img src="HorseSchematic.png" alt="Schematic" style="width:100%" height = "70%">
+  <div class="container">
+  <div class = "overflow">
+    <p>Schematic</p>
+  </div>
+  </div>
+</div>
+</div></div>
+
+
+</div>
+
+
+<div class ="overflow">
+
+    <div class="Bodycontainer2"><p>
+	<h2>6.0 Assembly</h2>
+<p><br><br>
+
+
+<div class="float-container">
+<div class="container3">
+<div class="float-child" style = "width:70%">
+<b>Materials</b><br><br>
+
+<a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/ref=sr_1_3?dchild=1&keywords=arduino+uno&qid=1603125089&sr=8-3"  style="text-decoration: none;"> REAL Arduino Uno </a><br>
+<a href="https://www.amazon.com/HiLetgo-Driver-Shield-Compatible-Duemilanove/dp/B01DG61YRM/ref=pd_lpo_147_t_1/142-5537857-1816949?_encoding=UTF8&pd_rd_i=B01DG61YRM&pd_rd_r=2b47f6a8-8c82-4f38-b3a4-d7fe97900d9a&pd_rd_w=xZ4F8&pd_rd_wg=gGdYk&pf_rd_p=7b36d496-f366-4631-94d3-61b87b52511b&pf_rd_r=Q3V3CPJ90G4E3BZ3S907&psc=1&refRID=Q3V3CPJ90G4E3BZ3S907"  style="text-decoration: none;">HiLetgo L293D Motor Drive Shield </a><br>
+
+<a href="https://www.amazon.com/NW-5V-6VDC-Miniature-Vacuum-100KPa/dp/B078H8V563"  style="text-decoration: none;">6V DC Air Pump</a><br>
+
+<a href="https://www.amazon.com/gp/product/B074Z5SDG3/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1"  style="text-decoration: none;">12V NC Solenoid Valve</a><br>
+
+<a href="https://www.amazon.com/FASTTOBUY-Soldering-Station-194%C2%B0F-896%C2%B0F-Temperature/dp/B082HP4513/ref=sr_1_25?dchild=1&keywords=soldering+iron&qid=1603125905&sr=8-25"  style="text-decoration: none;">Soldering Iron</a><br>
+
+<a href="https://www.amazon.com/Dremel-Cordless-Variable-Multi-Purpose-Accessory/dp/B07R9PNRBD/ref=sr_1_1?dchild=1&keywords=dremel&qid=1603126021&sr=8-1"  style="text-decoration: none;">Dremel for Panel Mount Cutouts</a><br>
+
+<a href="https://www.amazon.com/GeeekPi-Character-Backlight-Raspberry-Electrical/dp/B07S7PJYM6/ref=sr_1_3?dchild=1&keywords=lcd+screen+16x2+i2c&qid=1603126090&sr=8-3"  style="text-decoration: none;">16x2 i2C LCD Screen + Connector Wires</a><br>
+
+<a href="https://www.amazon.com/Switching-Adapter-Security-100-240V-Charger/dp/B0792261BP/ref=sr_1_2_sspa?dchild=1&keywords=12v+1A+dc+power+supply&qid=1604011202&sr=8-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzOFZKNEw4REc1M0lCJmVuY3J5cHRlZElkPUEwOTkyMzkyMkhKOUY1T1c0T0lTMyZlbmNyeXB0ZWRBZElkPUEwNDAzNDk2UklCWjBTSUtHWjlPJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ=="  style="text-decoration: none;">12V DC Power Supply</a><br>
+
+<a href="https://www.amazon.com/Zulkit-Waterproof-Electronic-Enclosure-100X68X50mm/dp/B083H9G123/ref=sr_1_17?dchild=1&keywords=plastic%2Bbox&qid=1603904332&sr=8-17&th=1"  style="text-decoration: none;">Plastic Chassis</a><br>
+
+
+
+
+
+<a href="https://www.digikey.com/en/products/detail/e-switch/RR511D1121/2116256"  style="text-decoration: none;">On-Off Rocker</a>
+
+<br>
+
+<a href="https://www.amazon.com/TUOFENG-Wire-Solid-different-colored-spools/dp/B07TX6BX47/ref=sr_1_2_sspa?dchild=1&keywords=22+awg+wire&qid=1603125451&s=industrial&sr=1-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFDU0FLSjVWOVdIUkImZW5jcnlwdGVkSWQ9QTA0ODE4ODUyUEZPOUtUQkFaWkhEJmVuY3J5cHRlZEFkSWQ9QTA4ODcwMTAzSUZMNEdCTEtTVkZQJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ=="  style="text-decoration: none;">22 AWG Wire*</a><br><br>*Any type of wire between 20-22AWG work for Arduino.<br> I prefer solid to stranded wire for ease of <br>soldering, but that is personal preference.
+
+<br><br>
+<b>Total Cost:</b> $100.16
+</div></div></div>
+
+
+</div></div>
+
+</span>
+</center>
+</div>
+</p>
+</html>
+</body>
